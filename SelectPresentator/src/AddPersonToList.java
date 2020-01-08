@@ -35,17 +35,13 @@ public class AddPersonToList implements Action {
                 if (result.length > 1) {
                     lastName = result[1];
                 }
-                Person person = new Person(_participiants.size() + 1,firstName, lastName, false);
+                Person person = new Person(firstName, lastName, false);
                 _participiants.add(person);
-                
+                MenuSelection.viewPartecipantList();
             }
         } while (!fullName.equals("q"));
         
         WriteCsvFile.writeOnFile(_fileName, _participiants);
-        
-        for (Person person : _participiants) {
-            System.out.println(person.getIndex() + " " + person.getFullName());
-        }
         MenuSelection.showMenuOptions();
     }
 

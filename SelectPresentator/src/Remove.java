@@ -14,22 +14,24 @@ public class Remove implements Action {
 
     @Override
     public void exec() {
-        System.out.println("Choose the index of the person you want to exclude from the participiants list!");
 
-        for (Person person : _participiants) {
-            System.out.println(person.getIndex() + " " + person.getFullName());
-        }
-        int index = 0;
-        do {
+          MenuSelection.viewPartecipantList();
+//        do {
+   
+            System.out.println("\nChoose the index of the person you want to exclude from the participiants list!");
             _in = new Scanner(System.in);
-            index = _in.nextInt();
-
+            int index = _in.nextInt();
+            
             for (Person person : _participiants) {
-                if ((person.getIndex()) == index) {
-                    System.out.println("found participiant=" + person.getFullName());
+                if (person.getIndex() == index) {
+                    person.setAbsent(true);
+                    System.out.println("found participiant=" + person.getFullName() + " " + person.getIndex());
                 }
             }
-        } while (index > 0 && index < _participiants.size());
+ 
+//        } while (index > 0 && index < _participiants.size() + 1 );
+        WriteCsvFile.writeOnFile(_fileName, _participiants);
+        MenuSelection.showMenuOptions();
     }
 
     public ArrayList<Person> getParticipiants() {

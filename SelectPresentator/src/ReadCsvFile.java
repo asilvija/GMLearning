@@ -34,11 +34,10 @@ public class ReadCsvFile {
         
     }
     private static Person createPerson(String[] attributes) {
-        int index =  Integer.parseInt(attributes[0]);
-        String firstName = attributes[1];
-        String lastName = attributes[2];
-        Boolean isAbsent = Boolean.parseBoolean(attributes[3]);
+        String firstName = attributes[0];
+        String lastName = attributes[1];
+        Boolean isAbsent = Boolean.parseBoolean(attributes[2]);
                 
-        return new Person(index, firstName, lastName, isAbsent);
+        return new Person(firstName, lastName, isAbsent);
     }
 }

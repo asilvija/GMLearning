@@ -9,12 +9,9 @@ public class WriteCsvFile {
 
         try {
             FileWriter fw = new FileWriter(fileName);
-            fw.write("Index,firstName,lastName");
+            fw.write("firstName,lastName,isAbsent");
             fw.append(NEW_LINE_SEPARATOR);
             for (Person person : participiants) {
-                // fw.write(person.getIndex() + "," + person.getFirstName() + "," + person.getLastName());
-                fw.append(String.valueOf(person.getIndex()));
-                fw.append(COMMA_DELIMITER);
                 fw.append(person.getFirstName());
                 fw.append(COMMA_DELIMITER);
                 fw.append(person.getLastName());
