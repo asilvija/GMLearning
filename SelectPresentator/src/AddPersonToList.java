@@ -12,24 +12,17 @@ public class AddPersonToList implements Action {
         _participiants = participiants;
         _fileName = fileName;
     }
-    
+
     @Override
     public void exec() {
         // TODO
-        // add participants to meeting
         String fullName;
-        
         do {
             _in = new Scanner(System.in);
             System.out.println("Insert participiant full name (Press q to exit):");
             fullName = _in.nextLine();
             if (!fullName.equals("q")) {
-//
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//                Date date = new Date(System.currentTimeMillis());
-//                String current_date = formatter.format(date);
-              
-                String [] result =fullName.split(" ");
+                String[] result = fullName.split(" ");
                 String firstName = result[0];
                 String lastName = "";
                 if (result.length > 1) {
@@ -37,12 +30,11 @@ public class AddPersonToList implements Action {
                 }
                 Person person = new Person(firstName, lastName, false);
                 _participiants.add(person);
-                MenuSelection.viewPartecipantList();
+//                new MenuSelection().viewParticipantList();
             }
         } while (!fullName.equals("q"));
-        
-        WriteCsvFile.writeOnFile(_fileName, _participiants);
-        MenuSelection.showMenuOptions();
+        String[] csvColumnNames = {"firstName","lastName","isAbsent"};
+        new WriteCsvFile(_fileName).writeOnFile(csvColumnNames, _participiants);
+        new MenuSelection().showMenuOptions();
     }
-
 }

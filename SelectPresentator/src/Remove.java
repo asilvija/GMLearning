@@ -15,23 +15,26 @@ public class Remove implements Action {
     @Override
     public void exec() {
 
-          MenuSelection.viewPartecipantList();
-//        do {
-   
-            System.out.println("\nChoose the index of the person you want to exclude from the participiants list!");
-            _in = new Scanner(System.in);
-            int index = _in.nextInt();
-            
-            for (Person person : _participiants) {
-                if (person.getIndex() == index) {
-                    person.setAbsent(true);
-                    System.out.println("found participiant=" + person.getFullName() + " " + person.getIndex());
-                }
+        new MenuSelection().viewParticipantList();
+
+        System.out.println("\nChoose the index of the person you want to exclude from the participiants list!");
+        _in = new Scanner(System.in);
+        int index = _in.nextInt();
+        System.out.println("index to find..." + index);
+        for (Person person : _participiants) {
+
+            System.out.println("participiants..." + person.getFullName() + " " + person.getIndex() + " is absent "
+                + person.isAbsent());
+
+            if (person.getIndex() == index) {
+                // person.setIndex(0);
+                person.setAbsent(true);
+                new MenuSelection().viewParticipantList();
             }
- 
-//        } while (index > 0 && index < _participiants.size() + 1 );
-        WriteCsvFile.writeOnFile(_fileName, _participiants);
-        MenuSelection.showMenuOptions();
+        }
+        String[] csvColumnNames = { "firstName", "lastName", "isAbsent" };
+        new MenuSelection().showMenuOptions();
+        new WriteCsvFile(_fileName).writeOnFile(csvColumnNames, _participiants);
     }
 
     public ArrayList<Person> getParticipiants() {

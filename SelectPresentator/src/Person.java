@@ -2,8 +2,8 @@ public class Person {
     private int _index;
     private String _firstName;
     private String _lastName;
-    private boolean _isAbsent= false;
-    
+    private boolean _isAbsent = false;
+
     public String getFirstName() {
         return _firstName;
     }
@@ -19,12 +19,14 @@ public class Person {
     public void setLastName(String lastName) {
         _lastName = lastName;
     }
+
     public String getFullName() {
         return _firstName + " " + _lastName;
     }
-    public Person (String firstName, String lastName, Boolean isAbsent) {
-        _firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
-        _lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+
+    public Person(String firstName, String lastName, Boolean isAbsent) {
+        _firstName = firstName;
+        _lastName = lastName;
         _isAbsent = isAbsent;
     }
 
