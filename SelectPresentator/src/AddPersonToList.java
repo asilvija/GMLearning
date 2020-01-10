@@ -4,12 +4,10 @@ import java.util.Scanner;
 public class AddPersonToList implements Action {
 
     private Scanner _in;
-    private final ArrayList<Person> _participiants;
     private final String _fileName;
 
-    public AddPersonToList(Scanner in, ArrayList<Person> participiants, String fileName) {
+    public AddPersonToList(Scanner in, String fileName) {
         _in = in;
-        _participiants = participiants;
         _fileName = fileName;
     }
 
@@ -17,6 +15,7 @@ public class AddPersonToList implements Action {
     public void exec() {
         // TODO
         String fullName;
+        ArrayList<Person>_participiants = new ReadCsvFile(_fileName).readFile();
         do {
             _in = new Scanner(System.in);
             System.out.println("Insert participiant full name (Press q to exit):");
@@ -28,9 +27,8 @@ public class AddPersonToList implements Action {
                 if (result.length > 1) {
                     lastName = result[1];
                 }
-                Person person = new Person(firstName, lastName, false);
+                Person person = new Person(_participiants.size() + 1,firstName, lastName, false);
                 _participiants.add(person);
-//                new MenuSelection().viewParticipantList();
             }
         } while (!fullName.equals("q"));
         String[] csvColumnNames = {"firstName","lastName","isAbsent"};

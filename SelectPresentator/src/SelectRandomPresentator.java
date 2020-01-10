@@ -4,17 +4,16 @@ import java.util.Scanner;
 
 public class SelectRandomPresentator implements Action {
     private final Scanner _in;
-    private final ArrayList<Person> _participiants;
     private final String _fileName;
 
-    public SelectRandomPresentator(Scanner in, ArrayList<Person> participiants, String fileName) {
+    public SelectRandomPresentator(Scanner in, String fileName) {
         _in = in;
-        _participiants = participiants;
         _fileName = fileName;
     }
 
     @Override
     public void exec() {
+        ArrayList <Person> _participiants = new ReadCsvFile(_fileName).readFile();
         Random randomGenerator = new Random();
         ArrayList<Person> presentParticipiant = new ArrayList<>();
         for (Person person : _participiants) {
@@ -30,10 +29,6 @@ public class SelectRandomPresentator implements Action {
 
     public Scanner getIn() {
         return _in;
-    }
-
-    public ArrayList<Person> getParticipiants() {
-        return _participiants;
     }
 
     public String getFileName() {

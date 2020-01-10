@@ -3,12 +3,10 @@ import java.util.Scanner;
 
 public class Remove implements Action {
     private Scanner _in;
-    private final ArrayList<Person> _participiants;
     private final String _fileName;
 
-    public Remove(Scanner in, ArrayList<Person> participiants, String fileName) {
+    public Remove(Scanner in, String fileName) {
         _in = in;
-        _participiants = participiants;
         _fileName = fileName;
     }
 
@@ -21,24 +19,20 @@ public class Remove implements Action {
         _in = new Scanner(System.in);
         int index = _in.nextInt();
         System.out.println("index to find..." + index);
+        ArrayList<Person>_participiants = new ReadCsvFile(_fileName).readFile();
         for (Person person : _participiants) {
 
             System.out.println("participiants..." + person.getFullName() + " " + person.getIndex() + " is absent "
                 + person.isAbsent());
 
             if (person.getIndex() == index) {
-                // person.setIndex(0);
+                person.setIndex(0);
                 person.setAbsent(true);
-                new MenuSelection().viewParticipantList();
             }
         }
         String[] csvColumnNames = { "firstName", "lastName", "isAbsent" };
-        new MenuSelection().showMenuOptions();
         new WriteCsvFile(_fileName).writeOnFile(csvColumnNames, _participiants);
-    }
-
-    public ArrayList<Person> getParticipiants() {
-        return _participiants;
+        new MenuSelection().showMenuOptions();
     }
 
     public String getFileName() {

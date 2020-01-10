@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class MenuSelection {
     private final String _fileName = "participiantsList.csv";
-    private final ArrayList<Person> _participiants = new ReadCsvFile(_fileName).readFile();
 
     public void menuSelection() {
         showMenuOptions();
@@ -18,9 +17,9 @@ public class MenuSelection {
                 menuSelection = in.nextInt();
                 Map<Integer, Action> map = new HashMap<Integer, Action>() {
                     {
-                        put(1, new AddPersonToList(in, _participiants, _fileName));
-                        put(2, new Remove(in, _participiants, _fileName));
-                        put(3, new SelectRandomPresentator(in, _participiants, _fileName));
+                        put(1, new AddPersonToList(in, _fileName));
+                        put(2, new Remove(in,_fileName));
+                        put(3, new SelectRandomPresentator(in, _fileName));
                     }
                 };
                 map.get(menuSelection).exec();
@@ -32,14 +31,12 @@ public class MenuSelection {
     }
 
     public List<Person> viewParticipantList() {
+        ArrayList<Person> _participiants = new ReadCsvFile(_fileName).readFile();
 
         System.out.println("Participiants list:\n");
-        int index = 0;
         for (Person person : _participiants) {
             if (!person.isAbsent()) {
-                index++;
-                person.setIndex(index);
-                System.out.println(index + " " + person.getFullName() + " " + person.getIndex() + " is absent " + person.isAbsent());
+                System.out.println(person.getIndex() + " " + person.getFullName() + " " + person.getIndex() + " is absent " + person.isAbsent());
             }
         }
         return _participiants;

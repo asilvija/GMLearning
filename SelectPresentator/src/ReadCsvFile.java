@@ -21,14 +21,17 @@ public class ReadCsvFile {
         String row;
         try {
             row = csvReader.readLine();
+            int index = 0;
             while ((row = csvReader.readLine()) != null) {
                 String attributes[] = row.split(",");
                 
                 String firstName = attributes[0];
                 String lastName = attributes[1];
                 Boolean isAbsent = Boolean.parseBoolean(attributes[2]);
-                
-                Person person = new Person(firstName, lastName, isAbsent);
+                if (!isAbsent) {
+                    index++;
+                }
+                Person person = new Person(index, firstName, lastName, isAbsent);
                 participiants.add(person);
             }
         } catch (IOException e1) {

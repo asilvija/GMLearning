@@ -24,7 +24,8 @@ public class Person {
         return _firstName + " " + _lastName;
     }
 
-    public Person(String firstName, String lastName, Boolean isAbsent) {
+    public Person(int index, String firstName, String lastName, Boolean isAbsent) {
+        _index = index;
         _firstName = firstName;
         _lastName = lastName;
         _isAbsent = isAbsent;
