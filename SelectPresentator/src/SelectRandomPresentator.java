@@ -34,5 +34,4 @@ public class SelectRandomPresentator implements Action {
     public String getFileName() {
         return _fileName;
     }
-
 }
