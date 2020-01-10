@@ -35,7 +35,7 @@ public class MenuSelection {
         in.close();
     }
 
-    public List<Person> viewParticipantList() {
+    private List<Person> viewParticipantList() {
         ArrayList<Person> _participiants = new Store(_fileName).readParticipiantList();
 
         System.out.println("Participiants list:\n");
@@ -48,7 +48,7 @@ public class MenuSelection {
         return _participiants;
     }
 
-    public void showMenuOptions() {
+    private void showMenuOptions() {
         viewParticipantList();
         System.out.println("---------------------------------------------");
         System.out.print(
@@ -59,7 +59,7 @@ public class MenuSelection {
         System.out.println("---------------------------------------------");
     }
 
-    public void addPresonToList(Scanner in) {
+    private void addPresonToList(Scanner in) {
         String fullName;
         ArrayList<Person> _participiants = new Store(_fileName).readParticipiantList();
         do {
@@ -82,7 +82,7 @@ public class MenuSelection {
         showMenuOptions();
     }
 
-    public void removePersonFromList(Scanner in) {
+    private void removePersonFromList(Scanner in) {
         viewParticipantList();
 
         System.out.println("\nChoose the index of the person you want to exclude from the participiants list!");
@@ -111,7 +111,7 @@ public class MenuSelection {
         showMenuOptions();
     }
 
-    public void selectRandomPresentator() {
+    private void selectRandomPresentator() {
         ArrayList<Person> _participiants = new Store(_fileName).readParticipiantList();
         Random randomGenerator = new Random();
         ArrayList<Person> presentParticipiant = new ArrayList<>();
