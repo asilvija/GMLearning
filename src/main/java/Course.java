@@ -1,5 +1,6 @@
 
 public class Course {
+    
     private final String _number;
     private final String _name;
     private final String _description;

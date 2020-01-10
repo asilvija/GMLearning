@@ -5,6 +5,7 @@ public class Enrollment {
     public Enrollment(Student student) {
         _student = student;
     }
+    
     public String getInfo() {
         return _student.getFullName();
     }

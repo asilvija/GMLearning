@@ -8,6 +8,7 @@ public class Seminar {
     private final ArrayList<Enrollment> _enrollments;
 
     public Seminar(String location, int totalSeats, Course course) {
+        
         _enrollments = new ArrayList<Enrollment>();
         _location = location;
         _totalSeats = totalSeats;
