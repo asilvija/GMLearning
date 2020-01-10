@@ -79,11 +79,11 @@ public class MenuSelection {
         } while (!fullName.equals("q"));
         String[] csvColumnNames = { "firstName", "lastName", "isAbsent" };
         new Store(_fileName).writeParticipiantList(csvColumnNames, _participiants);
-        new MenuSelection().showMenuOptions();
+        showMenuOptions();
     }
 
     public void removePersonFromList(Scanner in) {
-        new MenuSelection().viewParticipantList();
+        viewParticipantList();
 
         System.out.println("\nChoose the index of the person you want to exclude from the participiants list!");
         int index = 0;
@@ -102,13 +102,13 @@ public class MenuSelection {
                 }
                 String[] csvColumnNames = { "firstName", "lastName", "isAbsent" };
                 new Store(_fileName).writeParticipiantList(csvColumnNames, _participiants);
-                new MenuSelection().viewParticipantList();
+                viewParticipantList();
 
             } while (index > 0 && index < _participiants.size());
         } catch (InputMismatchException e) {
-            new MenuSelection().showMenuOptions();
+            showMenuOptions();
         }
-        new MenuSelection().showMenuOptions();
+        showMenuOptions();
     }
 
     public void selectRandomPresentator() {
@@ -123,6 +123,6 @@ public class MenuSelection {
         int index = randomGenerator.nextInt(presentParticipiant.size());
         Person randomPresentator = presentParticipiant.get(index);
         System.out.println("random Presentor " + randomPresentator.getFullName() + "\n");
-        new MenuSelection().showMenuOptions();
+        showMenuOptions();
     }
 }
