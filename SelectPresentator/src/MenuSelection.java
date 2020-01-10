@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MenuSelection {
     private final String _fileName = "participiantsList.csv";
 
-    public void menuSelection() {
+    public void getMenuSelection() {
         showMenuOptions();
         int menuSelection = 0;
         final Scanner in = new Scanner(System.in);
