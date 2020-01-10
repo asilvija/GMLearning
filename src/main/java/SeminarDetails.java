@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class SeminarDetails {
     public static void main(String[] args) {
         Seminar english = new Seminar("Lugano", 10, new Course("1", "English", "A1"));

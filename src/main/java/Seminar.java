@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Seminar {
+    
     private final int _totalSeats;
     private final String _location;
     private final Course _course;
