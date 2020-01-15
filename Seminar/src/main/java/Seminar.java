@@ -1,26 +1,29 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class Seminar {
-    
+
     private final int _totalSeats;
     private final String _location;
     private final Course _course;
-    private final ArrayList<Enrollment> _enrollments;
+    private final List<Student> _students;
 
     public Seminar(String location, int totalSeats, Course course) {
-        
-        _enrollments = new ArrayList<Enrollment>();
+        _students = new ArrayList<Student>();
         _location = location;
         _totalSeats = totalSeats;
         _course = course;
     }
 
-    public void addEnrollment(Enrollment enrollment) {
-        _enrollments.add(enrollment);
+    public void addStudent(Student student) {
+        _students.add(student);
     }
+
     public String getName() {
         return _course.getName();
     }
+
     public String getDescription() {
         return _course.getDescription();
     }
@@ -28,15 +31,24 @@ public class Seminar {
     public String getLocation() {
         return _location;
     }
+
     public int getSeatsLeft() {
-        return _totalSeats - _enrollments.size();
+        return _totalSeats - _students.size();
     }
 
-    public ArrayList<Enrollment> getStudentList() {
-        return _enrollments;
+    public Collection<Student> getStudentList() {
+        return _students;
     }
+
     public Course getCourse() {
         return _course;
     }
-   
+
+    public String getInfo() {
+       return new PrintPlain().print(this);
+    }
+
+    public String getInfoHtml() {
+       return new PrintHtml().print(this);
+    }
 }
