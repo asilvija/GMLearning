@@ -100,7 +100,7 @@ public class MenuSelection {
                         person.setAbsent(true);
                     }
                 }
-                String[] csvColumnNames = { "firstName", "lastName", "isAbsent" };
+                String[] csvColumnNames = { "firstName","lastName","isAbsent" };
                 new Store(_fileName).writeParticipiantList(csvColumnNames, _participiants);
                 viewParticipantList();
 

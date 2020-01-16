@@ -63,6 +63,7 @@ public class Store {
             }
         }
         try {
+            
             FileWriter fw = new FileWriter(_fileName);
             fw.write(_csvColumnNames);
             for (Person person : participiants) {
