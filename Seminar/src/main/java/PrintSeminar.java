@@ -1,5 +1,5 @@
 
-interface SeminarPrint {
+interface PrintSeminar {
   public String print(Seminar seminar);  
 
 }

@@ -44,11 +44,19 @@ public class Seminar {
         return _course;
     }
 
-    public String getInfo() {
-       return new PrintPlain().print(this);
+    public String getNumber() {
+        return getCourse().getNumber();
     }
 
-    public String getInfoHtml() {
-       return new PrintHtml().print(this);
+    public String printPlain() {
+        return new PrintPlain().print(this);
+    }
+
+    public String printHtml() {
+        return new PrintHtml().print(this);
+    }
+
+    public String printCsv() {
+        return new PrintCsv().print(this);
     }
 }

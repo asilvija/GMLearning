@@ -19,7 +19,7 @@ public class SeminarDetails {
         Collection<Seminar> seminars = Arrays.asList(english, deutsch, espagnolo);
 
         for (Seminar seminar : seminars) {
-            System.out.println(seminar.getInfo());
+            System.out.println(seminar.printCsv());
             System.out.println("------------------------------------------------"); 
         }
     }
