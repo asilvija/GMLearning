@@ -5,7 +5,9 @@ import java.util.Iterator;
 public class PrintCsv implements PrintSeminar {
 
     public String print(Seminar seminar) {
-        String result = "\"" + seminar.getNumber() + "\";"
+        String result = 
+              "\"" + seminar.getNumber() + "\";"
+            +  "\"" + seminar.getName() + "\";"
             + "\"" + seminar.getDescription() + "\";"
             + "\"" + seminar.getLocation() + "\";"
             + "\"" + seminar.getSeatsLeft() + "\";"
