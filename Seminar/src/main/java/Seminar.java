@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public class Seminar {
@@ -38,6 +39,10 @@ public class Seminar {
 
     public Collection<Student> getStudentList() {
         return _students;
+    }
+
+    public Date getStartDate() {
+        return _course.getStartDate();
     }
 
     public Course getCourse() {

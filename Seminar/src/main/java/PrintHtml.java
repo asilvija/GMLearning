@@ -12,6 +12,7 @@ public class PrintHtml implements PrintSeminar {
                     + "<ul>" 
                     + "<li>descrizione " + seminar.getDescription() + "</li>"
                     + "<li>luogo " + seminar.getLocation() + "</li>"
+                    + "<li>data " + seminar.getStartDate() + "</li>"
                     + "<li>posti rimanenti " + seminar.getSeatsLeft() + "</li></ul>"
                     + "<div>partecipanti:</div>"
                     + "<ul>" + addStudentsInfoHtml(seminar) + "</ul>"
@@ -21,9 +22,9 @@ public class PrintHtml implements PrintSeminar {
 
     private String addStudentsInfoHtml(Seminar seminar) {
         Iterator<Student> i = seminar.getStudentList().iterator();
-        Student student = i.next();
         String result = "";
         while (i.hasNext()) {
+            Student student = i.next();
             result += "<li>" + student.getName() + " " + student.getLastName() + "</li>";
         }
         return result;

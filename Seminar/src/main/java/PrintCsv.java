@@ -10,6 +10,7 @@ public class PrintCsv implements PrintSeminar {
             +  "\"" + seminar.getName() + "\";"
             + "\"" + seminar.getDescription() + "\";"
             + "\"" + seminar.getLocation() + "\";"
+            + "\"" + seminar.getStartDate() + "\";"
             + "\"" + seminar.getSeatsLeft() + "\";"
             + addStudentsInfo(seminar);
 
