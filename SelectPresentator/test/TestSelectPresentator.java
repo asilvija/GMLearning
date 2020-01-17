@@ -26,9 +26,7 @@ public class TestSelectPresentator {
         _participiants = new Store("participiantsList.csv").readParticipiantList();
         
         assertThat(_participiants, hasSize(1));
-
         assertThat(person.isAbsent(), is(false));
-        
         person.setAbsent(true);
         
         assertThat(person.isAbsent(), is(true));
@@ -42,14 +40,12 @@ public class TestSelectPresentator {
 
     @Test
     public void checkFile() {
-
         BufferedReader csvReader = null;
         try {
             csvReader = new BufferedReader(new FileReader("participiantsList.csv"));
         } catch (FileNotFoundException e) {
             System.out.println("No file found..");
         }
-
         try {
             String attributes[] = csvReader.readLine().split(",");
             assertThat(attributes[0], is("firstName"));
