@@ -1,14 +1,18 @@
+import java.util.List;
+
 public class Person {
     private int _index;
-    private final String _firstName;
-    private final String _lastName;
+    private String _firstName = "";
+    private String _lastName = "";
     private boolean _isAbsent = false;
 
-    public Person(int index, String firstName, String lastName, Boolean isAbsent) {
+    public Person(int index, List<String> attributes) {
         _index = index;
-        _firstName = firstName;
-        _lastName = lastName;
-        _isAbsent = isAbsent;
+        if (attributes.size() == 3) {
+            _firstName = attributes.get(0);
+            _lastName = attributes.get(1);
+            setAbsent(Boolean.parseBoolean(attributes.get(2)));
+        }
     }
 
     public String getFirstName() {

@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Store {
@@ -30,15 +31,14 @@ public class Store {
             row = csvReader.readLine();
             int index = 0;
             while ((row = csvReader.readLine()) != null) {
-                String attributes[] = row.split(",");
-
-                String firstName = attributes[0];
-                String lastName = attributes[1];
-                Boolean isAbsent = Boolean.parseBoolean(attributes[2]);
+                String result[] = row.split(",");
+                List<String> attributes = Arrays.asList(result);
+                
+                Boolean isAbsent = Boolean.parseBoolean(result[2]);
                 if (!isAbsent) {
                     index++;
                 }
-                Person person = new Person(index, firstName, lastName, isAbsent);
+                Person person = new Person(index, attributes);
                 participiants.add(person);
             }
         } catch (IOException e1) {
