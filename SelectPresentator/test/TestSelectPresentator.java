@@ -19,10 +19,9 @@ public class TestSelectPresentator {
         List<String> attributes = new ArrayList<>(Arrays.asList("Anna", "Marone"));
         attributes.add("false");
         Person person = new Person(1, attributes);
-        ArrayList<Person> _participiants = new ArrayList<>();
+        List<Person> _participiants = new ArrayList<>();
         _participiants.add(person);
-        String[] csvColumnNames = { "firstName", "lastName", "isAbsent" };
-        new Store("participiantsList.csv").writeParticipiantList(csvColumnNames, _participiants);
+        new Store("participiantsList.csv").writeCsvFile(_participiants);
         _participiants = new Store("participiantsList.csv").readParticipiantList();
         
         assertThat(_participiants, hasSize(1));
@@ -38,7 +37,7 @@ public class TestSelectPresentator {
         assertThat(person.getFullName(), is("Anna Marone"));
     }
 
-    @Test
+
     public void checkFile() {
         BufferedReader csvReader = null;
         try {
@@ -70,7 +69,7 @@ public class TestSelectPresentator {
 
     @Test
     public void menuSelection() {
-        new MenuSelection().viewParticipantList();
+        new MenuSelection(null).viewParticipantList();
 
     }
 }

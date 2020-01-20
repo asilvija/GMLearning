@@ -1,5 +1,7 @@
+import static java.util.Arrays.*;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,73 +9,74 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Store {
-    
-    private final String _fileName;
-    private String _csvColumnNames = "";
-    private final String _COMMA_DELIMITER = ",";
-    private final String _NEW_LINE_SEPARATOR = "\n";
+import renderer.CsvRenderer;
 
+public class Store {
+
+    private final String _fileName;
     public Store(String fileName) {
         _fileName = fileName;
     }
 
-    public ArrayList<Person> readParticipiantList() {
-        ArrayList<Person> participiants = new ArrayList<>();
-        BufferedReader csvReader = null;
+    public List<Person> readParticipiantList() {
+        List<Person> participiants = new ArrayList<>();
+        int index = 0;
         try {
-            csvReader = new BufferedReader(new FileReader(_fileName));
-        } catch (FileNotFoundException e) {
-            System.out.println("No file found..");
-        }
-        String row;
-        try {
-            row = csvReader.readLine();
-            int index = 0;
+
+            createFileIfNotExsists();
+            BufferedReader csvReader = new BufferedReader(new FileReader(_fileName));
+            String row = csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
                 String result[] = row.split(",");
                 List<String> attributes = Arrays.asList(result);
-                
+
                 Boolean isAbsent = Boolean.parseBoolean(result[2]);
                 if (!isAbsent) {
                     index++;
                 }
+
                 Person person = new Person(index, attributes);
                 participiants.add(person);
             }
-        } catch (IOException e1) {
-            throw new RuntimeException(e1);
-        }
-        try {
-            if (csvReader != null)
-                csvReader.close();
+            csvReader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return participiants;
-    }
-    
-    public void writeParticipiantList(String[] csvColumnNames, List<Person> participiants) {
 
-        for (int i = 0; i < csvColumnNames.length; i++) {
-            if ((i + 1) < csvColumnNames.length) {
-                _csvColumnNames += csvColumnNames[i] + _COMMA_DELIMITER;
-            } else {
-                _csvColumnNames += csvColumnNames[i] + _NEW_LINE_SEPARATOR;
-            }
+    }
+
+    private void createFileIfNotExsists() throws IOException {
+        File file = new File(_fileName);
+        if (file.createNewFile()) writeCsvColumnNames();
+    }
+
+    public String writeCsvColumnNames() {
+
+        List<List<String>> data = new ArrayList<>();
+        data.add(asList("firstName", "lastName", "isAbsent"));
+        String result = new CsvRenderer(data).render();
+
+        writeOnFile(result, _fileName);
+        return result;
+    }
+
+    public String writeCsvFile(List<Person> _participiants) {
+        List<List<String>> data = new ArrayList<>();
+        data.add(asList("firstName", "lastName", "isAbsent"));
+        for (Person person : _participiants) {
+            data.add(asList(person.getFirstName(), person.getLastName(), String.valueOf(person.isAbsent())));
         }
+        String result = new CsvRenderer(data).render();
+
+        writeOnFile(result, _fileName);
+        return result;
+    }
+
+    private void writeOnFile(String result, String fileName) {
         try {
-            
-            FileWriter fw = new FileWriter(_fileName);
-            fw.write(_csvColumnNames);
-            for (Person person : participiants) {
-                fw.append(person.getFirstName());
-                fw.append(_COMMA_DELIMITER);
-                fw.append(person.getLastName());
-                fw.append(_COMMA_DELIMITER);
-                fw.append(String.valueOf(person.isAbsent()));
-                fw.append(_NEW_LINE_SEPARATOR);
-            }
+            FileWriter fw = new FileWriter(fileName);
+            fw.write(result);
             fw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

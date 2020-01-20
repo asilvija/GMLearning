@@ -1,10 +1,20 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuSelection {
-    private final String _fileName = "participiantsList.csv";
+    private String _fileName = "participiantsList";
+    private String _date;
+
+    public MenuSelection(String date) {
+        setDate(date);
+        setFileName();
+    }
+
+    private void setFileName() {
+        _fileName += "_"+_date + ".csv";
+        System.out.println(_fileName);
+    }
 
     public void getMenuSelection() {
         showMenuOptions();
@@ -15,13 +25,13 @@ public class MenuSelection {
                 menuSelection = in.nextInt();
                 switch (menuSelection) {
                 case 1:
-                    new AddPersonToList(in, _fileName).exec();
+                    new AddPersonToList(in, _fileName, this).exec();
                     break;
                 case 2:
-                    new RemovePersonFromList(in, _fileName).exec();
+                    new RemovePersonFromList(in, _fileName, this).exec();
                     break;
                 case 3:
-                    new SelectRandomPresentator(_fileName).exec();
+                    new SelectRandomPresentator(_fileName, this).exec();
                     break;
                 default:
                     break;
@@ -34,7 +44,7 @@ public class MenuSelection {
     }
 
     public List<Person> viewParticipantList() {
-        ArrayList<Person> _participiants = new Store(_fileName).readParticipiantList();
+        List<Person> _participiants = new Store(_fileName).readParticipiantList();
 
         System.out.println("Participiants list:\n");
         for (Person person : _participiants) {
@@ -55,5 +65,13 @@ public class MenuSelection {
                 + "2. Remove person from the participiants list\n"
                 + "3. Choose random presentator\n");
         System.out.println("---------------------------------------------");
+    }
+
+    public String getDate() {
+        return _date;
+    }
+
+    public void setDate(String date) {
+        _date = date;
     }
 }

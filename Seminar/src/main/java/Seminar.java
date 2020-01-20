@@ -56,11 +56,6 @@ public class Seminar {
         return getCourse().getNumber();
     }
 
-    public String printHtml() {
-        return renderHtml();
-
-    }
-
     public String renderHtml() {
 
         List<HtmlRenderer> studentList = new ArrayList<HtmlRenderer>();

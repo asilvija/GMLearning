@@ -1,24 +1,29 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class RemovePersonFromList implements Action {
-    
+
     private Scanner _in;
     private final String _fileName;
+    private final MenuSelection _menuSelection;
+    private final Store _store;
 
-    public RemovePersonFromList(Scanner in, String fileName) {
+    public RemovePersonFromList(Scanner in, String fileName, MenuSelection menuSelection) {
         setIn(in);
         _fileName = fileName;
+        _menuSelection = menuSelection;
+        _store = new Store(_fileName);
     }
 
     @Override
     public void exec() {
-        new MenuSelection().viewParticipantList();
+        getMenuSelection().viewParticipantList();
 
-        System.out.println("\nChoose the index of the person you want to exclude from the participiants list!(press any key to quit)");
+        System.out.println(
+            "\nChoose the index of the person you want to exclude from the participiants list!(press any key to quit)");
         int index = 0;
-        ArrayList<Person> _participiants = new Store(_fileName).readParticipiantList();
+        List<Person> _participiants = _store.readParticipiantList();
         try {
             do {
                 _participiants = new Store(_fileName).readParticipiantList();
@@ -26,18 +31,17 @@ public class RemovePersonFromList implements Action {
                 index = _in.nextInt();
 
                 setPersonAbsent(index, _participiants);
-                String[] csvColumnNames = { "firstName","lastName","isAbsent" };
-                new Store(_fileName).writeParticipiantList(csvColumnNames, _participiants);
-                new MenuSelection().viewParticipantList();
+                new Store(_fileName).writeCsvFile(_participiants);
+                getMenuSelection().viewParticipantList();
 
             } while (index > 0 && index < _participiants.size());
         } catch (InputMismatchException e) {
-            new MenuSelection().showMenuOptions();
+            getMenuSelection().showMenuOptions();
         }
-        new MenuSelection().showMenuOptions();
+        getMenuSelection().showMenuOptions();
     }
 
-    private void setPersonAbsent(int index, ArrayList<Person> _participiants) {
+    private void setPersonAbsent(int index, List<Person> _participiants) {
         for (Person person : _participiants) {
             if (person.getIndex() == index) {
                 person.setIndex(0);
@@ -52,6 +56,10 @@ public class RemovePersonFromList implements Action {
 
     public void setIn(Scanner in) {
         _in = in;
+    }
+
+    public MenuSelection getMenuSelection() {
+        return _menuSelection;
     }
 
 }
