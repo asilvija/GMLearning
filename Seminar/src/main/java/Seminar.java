@@ -1,3 +1,7 @@
+import static java.util.Arrays.*;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -53,15 +57,62 @@ public class Seminar {
         return getCourse().getNumber();
     }
 
-    public String printPlain() {
-        return new PrintPlain().print(this);
-    }
-
     public String printHtml() {
-        return new PrintHtml().print(this);
+        return renderHtml();
+
     }
 
-    public String printCsv() {
-        return new PrintCsv().print(this);
+    public String renderHtml() {
+
+        List<HtmlRenderer> studentList = new ArrayList<HtmlRenderer>();
+
+        for (Student student : getStudentList()) {
+            studentList.add(new HtmlRenderer().li(student.getName() + " " + student.getLastName()));
+        }
+
+        return new HtmlRenderer().html(
+            new HtmlRenderer().head(
+                new HtmlRenderer().title(getName())),
+            new HtmlRenderer().body(
+                new HtmlRenderer().div("Nome Corso:" + getName()),
+                new HtmlRenderer().ul(
+                    new HtmlRenderer().li(getDescription()),
+                    new HtmlRenderer().li(getStartDate().toString()),
+                    new HtmlRenderer().li(getLocation()),
+                    new HtmlRenderer().li(String.valueOf(getSeatsLeft()))),
+                new HtmlRenderer().div("Partecipanti:"),
+                new HtmlRenderer().ul(studentList.toArray(new HtmlRenderer[] {}))))
+            .render();
+    }
+
+    public String renderCsv() {
+
+        List<List<String>> data = new ArrayList<List<String>>();
+
+        data.add(asList(
+            getNumber(),
+            getName(),
+            getDescription(),
+            getLocation(),
+            String.valueOf(getSeatsLeft()),
+            String.valueOf(getStartDate())));
+
+        for (Student student : _students) {
+            data.add(asList(student.getName(), student.getLastName()));
+        }
+
+        String result = new CsvRenderer(data).render();
+        writeOnFile(result, getName());
+        return result;
+    }
+
+    private void writeOnFile(String seminarInfo, String fileName) {
+        try {
+            FileWriter fw = new FileWriter(fileName + ".csv");
+            fw.write(seminarInfo);
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

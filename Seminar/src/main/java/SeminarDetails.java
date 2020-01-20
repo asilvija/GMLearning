@@ -28,8 +28,10 @@ public class SeminarDetails {
         Collection<Seminar> seminars = Arrays.asList(english, deutsch, espagnolo);
 
         for (Seminar seminar : seminars) {
-            System.out.println(seminar.printCsv());
+            System.out.println(seminar.renderCsv());
             System.out.println("------------------------------------------------");
+            
+//            System.out.println(seminar.printCsv());
         }
     }
 }

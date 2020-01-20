@@ -82,7 +82,8 @@ public class SeminarTest {
 
         seminar.addStudent(new Student("Anna", "Marchi"));
         seminar.addStudent(new Student("Marco", "Ruggieri"));
-        seminar.printCsv();
+        seminar.renderCsv();
+        seminar.renderHtml();
 
         BufferedReader _input = new BufferedReader(new FileReader("English.csv"));
 
