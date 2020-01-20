@@ -1,17 +1,11 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 
 public class SeminarDetails {
     public static void main(String[] args) {
-        Date courseDate;
-        try {
-            courseDate = new SimpleDateFormat("dd.MM.yyyy").parse("28.03.2020");
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+
+        String courseDate = "28.03.2020";
+
         Seminar english = new Seminar("Lugano", 10, new Course("1", "English", "A1", courseDate));
         Seminar deutsch = new Seminar("Lugano", 12, new Course("1", "Deutsch", "B1", courseDate));
         Seminar espagnolo = new Seminar("Lugano", 8, new Course("1", "Espagnolo", "C1", courseDate));
@@ -30,8 +24,6 @@ public class SeminarDetails {
         for (Seminar seminar : seminars) {
             System.out.println(seminar.renderCsv());
             System.out.println("------------------------------------------------");
-            
-//            System.out.println(seminar.printCsv());
         }
     }
 }

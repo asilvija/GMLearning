@@ -1,3 +1,6 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Course {
@@ -5,13 +8,21 @@ public class Course {
     private final String _number;
     private final String _name;
     private final String _description;
-    private final Date _startDate;
+    private final String _startDate;
 
-    public Course(String number, String name, String description, Date startDate) {
+    public Course(String number, String name, String description, String courseDate) {
         _number = number;
         _name = name;
         _description = description;
-        _startDate = startDate;
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date _courseDate;
+        try {
+            _courseDate = new SimpleDateFormat("dd.MM.yyyy").parse(courseDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        _startDate = formatter.format(_courseDate);
     }
 
     public String getName() {
@@ -26,7 +37,7 @@ public class Course {
         return _description;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return _startDate;
     }
 }

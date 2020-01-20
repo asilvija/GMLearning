@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 public class Seminar {
@@ -45,7 +44,7 @@ public class Seminar {
         return _students;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return _course.getStartDate();
     }
 
