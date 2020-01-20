@@ -1,4 +1,3 @@
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,15 +13,17 @@ public class Course {
         _number = number;
         _name = name;
         _description = description;
+        _startDate = formatDate(courseDate);
+    }
 
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private String formatDate(String courseDate) {
         Date _courseDate;
         try {
             _courseDate = new SimpleDateFormat("dd.MM.yyyy").parse(courseDate);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        _startDate = formatter.format(_courseDate);
+        return new SimpleDateFormat("dd/MM/yyyy").format(_courseDate);
     }
 
     public String getName() {
