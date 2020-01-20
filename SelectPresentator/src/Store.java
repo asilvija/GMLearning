@@ -14,29 +14,24 @@ import renderer.CsvRenderer;
 public class Store {
 
     private final String _fileName;
+
     public Store(String fileName) {
         _fileName = fileName;
     }
 
     public List<Person> readParticipiantList() {
         List<Person> participiants = new ArrayList<>();
-        int index = 0;
+
         try {
 
             createFileIfNotExsists();
             BufferedReader csvReader = new BufferedReader(new FileReader(_fileName));
             String row = csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
+
                 String result[] = row.split(",");
                 List<String> attributes = Arrays.asList(result);
-
-                Boolean isAbsent = Boolean.parseBoolean(result[2]);
-                if (!isAbsent) {
-                    index++;
-                }
-
-                Person person = new Person(index, attributes);
-                participiants.add(person);
+                participiants.add(new Person(getIndex(result[2]), attributes));
             }
             csvReader.close();
         } catch (IOException e) {
@@ -44,6 +39,15 @@ public class Store {
         }
         return participiants;
 
+    }
+
+    private int getIndex(String result) {
+        int index = 0;
+        Boolean isAbsent = Boolean.parseBoolean(result);
+        if (!isAbsent) {
+            index++;
+        }
+        return index;
     }
 
     private void createFileIfNotExsists() throws IOException {
