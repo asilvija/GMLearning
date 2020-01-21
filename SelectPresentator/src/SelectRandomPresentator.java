@@ -4,20 +4,16 @@ import java.util.Random;
 
 public class SelectRandomPresentator implements Action {
     private final String _fileName;
-    private final MenuSelection _menuSelcetion;
 
-    public SelectRandomPresentator(String fileName,  MenuSelection menuSelection) {
+    public SelectRandomPresentator(String fileName) {
         _fileName = fileName;
-        _menuSelcetion = menuSelection;
     }
 
     @Override
     public void exec() {
-
         List<Person> _participiants = new Store(_fileName).readParticipiantList();
 
         selectRandomPresentator(_participiants);
-        getMenuSelcetion().showMenuOptions();
     }
 
     private void selectRandomPresentator(List<Person> _participiants) {
@@ -32,9 +28,4 @@ public class SelectRandomPresentator implements Action {
         Person randomPresentator = presentParticipiant.get(index);
         System.out.println("random Presentor " + randomPresentator.getFullName() + "\n");
     }
-
-    public MenuSelection getMenuSelcetion() {
-        return _menuSelcetion;
-    }
-
 }

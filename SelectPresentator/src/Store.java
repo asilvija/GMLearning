@@ -23,31 +23,29 @@ public class Store {
         List<Person> participiants = new ArrayList<>();
 
         try {
-
             createFileIfNotExsists();
             BufferedReader csvReader = new BufferedReader(new FileReader(_fileName));
-            String row = csvReader.readLine();
-            while ((row = csvReader.readLine()) != null) {
-
-                String result[] = row.split(",");
-                List<String> attributes = Arrays.asList(result);
-                participiants.add(new Person(getIndex(result[2]), attributes));
-            }
+            addPersonToListFromFile(participiants, csvReader);
             csvReader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return participiants;
-
     }
 
-    private int getIndex(String result) {
+    private void addPersonToListFromFile(List<Person> participiants, BufferedReader csvReader) throws IOException {
+        String row = csvReader.readLine();
         int index = 0;
-        Boolean isAbsent = Boolean.parseBoolean(result);
-        if (!isAbsent) {
-            index++;
+        while ((row = csvReader.readLine()) != null) {
+
+            String result[] = row.split(",");
+            List<String> attributes = Arrays.asList(result);
+            Boolean isAbsent = Boolean.parseBoolean(result[2]);
+            if (!isAbsent) {
+                index++;
+            }
+            participiants.add(new Person(index, attributes));
         }
-        return index;
     }
 
     private void createFileIfNotExsists() throws IOException {
@@ -55,7 +53,7 @@ public class Store {
         if (file.createNewFile()) writeCsvColumnNames();
     }
 
-    public String writeCsvColumnNames() {
+    private String writeCsvColumnNames() {
 
         List<List<String>> data = new ArrayList<>();
         data.add(asList("firstName", "lastName", "isAbsent"));

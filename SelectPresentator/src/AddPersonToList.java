@@ -1,5 +1,6 @@
 import static java.util.Arrays.*;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,15 +10,20 @@ import renderer.CsvRenderer;
 
 public class AddPersonToList implements Action {
 
-    private Scanner _in;
+    private final Scanner _in;
     private final String _fileName;
-    private final MenuSelection _menuSelcetion;
     private final Store _store;
+    
 
-    public AddPersonToList(Scanner in, String fileName, MenuSelection menuSelection) {
+    public AddPersonToList(InputStream input, String fileName) {
+        _in = new Scanner(input);
+        _fileName = fileName;
+        _store = new Store(_fileName); 
+    }
+    
+    public AddPersonToList(Scanner in, String fileName) {
         _in = in;
         _fileName = fileName;
-        _menuSelcetion = menuSelection;
         _store = new Store(_fileName); 
     }
 
@@ -25,8 +31,8 @@ public class AddPersonToList implements Action {
     public void exec() {
         String fullName;
         List<Person> _participiants = _store.readParticipiantList();
+        _in.nextLine();
         do {
-            _in = new Scanner(System.in);
             System.out.println("Insert participiant full name (Press q to exit):");
             fullName = _in.nextLine();
             if (!fullName.equals("q")) {
@@ -35,8 +41,6 @@ public class AddPersonToList implements Action {
         } while (!fullName.equals("q"));
 
         _store.writeCsvFile(_participiants);
-        System.out.println("file name to write..." + _fileName);
-        getMenuSelcetion().showMenuOptions();
     }
 
     public String renderCsv(ArrayList<Person> participiants) {
@@ -57,9 +61,5 @@ public class AddPersonToList implements Action {
 
         Person person = new Person(_participiants.size() + 1, attributes);
         _participiants.add(person);
-    }
-
-    public MenuSelection getMenuSelcetion() {
-        return _menuSelcetion;
     }
 }

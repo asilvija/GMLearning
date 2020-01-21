@@ -9,17 +9,16 @@ public class RemovePersonFromList implements Action {
     private final MenuSelection _menuSelection;
     private final Store _store;
 
-    public RemovePersonFromList(Scanner in, String fileName, MenuSelection menuSelection) {
+    public RemovePersonFromList(Scanner in, String fileName, String date) {
         setIn(in);
         _fileName = fileName;
-        _menuSelection = menuSelection;
         _store = new Store(_fileName);
+        _menuSelection = new MenuSelection(date);
     }
 
     @Override
     public void exec() {
         getMenuSelection().viewParticipantList();
-
         System.out.println(
             "\nChoose the index of the person you want to exclude from the participiants list!(press any key to quit)");
         int index = 0;
@@ -36,15 +35,14 @@ public class RemovePersonFromList implements Action {
 
             } while (index > 0 && index < _participiants.size());
         } catch (InputMismatchException e) {
-            getMenuSelection().showMenuOptions();
+
         }
-        getMenuSelection().showMenuOptions();
     }
 
     private void setPersonAbsent(int index, List<Person> _participiants) {
         for (Person person : _participiants) {
-            if (person.getIndex() == index) {
-                person.setIndex(0);
+            if (person.getKey() == index) {
+                person.setKey(0);
                 person.setAbsent(true);
             }
         }

@@ -1,13 +1,13 @@
 import java.util.List;
 
 public class Person {
-    private int _index;
+    private int _key;
     private String _firstName = "";
     private String _lastName = "";
     private boolean _isAbsent = false;
 
-    public Person(int index, List<String> attributes) {
-        _index = index;
+    public Person(int key, List<String> attributes) {
+        _key = key;
         if (attributes.size() == 3) {
             _firstName = attributes.get(0);
             _lastName = attributes.get(1);
@@ -35,11 +35,11 @@ public class Person {
         _isAbsent = isAbsent;
     }
 
-    public int getIndex() {
-        return _index;
+    public int getKey() {
+        return _key;
     }
 
-    public void setIndex(int index) {
-        _index = index;
+    public void setKey(int key) {
+        _key = key;
     }
 }
