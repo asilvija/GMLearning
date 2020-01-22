@@ -26,7 +26,6 @@ public class RemovePersonFromList implements Action {
         try {
             do {
                 _participiants = new Store(_fileName).readParticipiantList();
-                _in = new Scanner(System.in);
                 index = _in.nextInt();
 
                 setPersonAbsent(index, _participiants);
@@ -48,15 +47,11 @@ public class RemovePersonFromList implements Action {
         }
     }
 
-    public Scanner getIn() {
-        return _in;
-    }
-
-    public void setIn(Scanner in) {
+    private void setIn(Scanner in) {
         _in = in;
     }
 
-    public MenuSelection getMenuSelection() {
+    private MenuSelection getMenuSelection() {
         return _menuSelection;
     }
 
