@@ -13,10 +13,7 @@ public class HtmlRenderer implements Renderer {
     }
 
     public String render() {
-        String result = "";
-        result += "<" + getTagName() + ">";
-
-        result += _value;
+        String result = "<" + getTagName() + ">" + _value;
 
         for (HtmlRenderer tag : _children) {
             result += tag.render();
@@ -76,10 +73,6 @@ public class HtmlRenderer implements Renderer {
 
     public void setTagName(String tagName) {
         _tagName = tagName;
-    }
-
-    public String getValue() {
-        return _value;
     }
 
     public void setValue(String value) {

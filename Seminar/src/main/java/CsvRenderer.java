@@ -16,7 +16,6 @@ public class CsvRenderer implements Renderer {
             result += "\n";
 
         }
-      
         return result;
     }
 
@@ -26,10 +25,6 @@ public class CsvRenderer implements Renderer {
 
     public String getFieldSeparator() {
         return _fieldSeparator;
-    }
-
-    public List<List<String>> getData() {
-        return _data;
     }
 
     public String getTextDelimiter() {

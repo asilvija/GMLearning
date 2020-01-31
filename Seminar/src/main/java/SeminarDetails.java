@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class SeminarDetails {
+
     public static void main(String[] args) {
 
         String courseDate = "28.03.2020";
@@ -21,8 +22,9 @@ public class SeminarDetails {
 
         Collection<Seminar> seminars = Arrays.asList(english, deutsch, espagnolo);
 
+        english.renderHtml();
         for (Seminar seminar : seminars) {
-            System.out.println(seminar.renderCsv());
+            System.out.println(seminar.renderRaw());
             System.out.println("------------------------------------------------");
         }
     }

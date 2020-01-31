@@ -55,6 +55,27 @@ public class Seminar {
     public String getNumber() {
         return getCourse().getNumber();
     }
+    
+    public String renderRaw() {
+
+        List<List<String>> data = new ArrayList<List<String>>();
+
+        data.add(asList(
+            getNumber(),
+            getName(),
+            getDescription(),
+            getLocation(),
+            String.valueOf(getSeatsLeft()),
+            String.valueOf(getStartDate())));
+
+        for (Student student : _students) {
+            data.add(asList(student.getName(), student.getLastName()));
+        }
+
+        String result = new RawRenderer(data).render();
+        writeOnFile(result, getName());
+        return result;
+    }
 
     public String renderHtml() {
 
