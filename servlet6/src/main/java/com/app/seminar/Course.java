@@ -1,7 +1,4 @@
 package com.app.seminar;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Course {
 
@@ -18,13 +15,7 @@ public class Course {
     }
 
     private String formatDate(String courseDate) {
-        Date _courseDate;
-        try {
-            _courseDate = new SimpleDateFormat("dd.MM.yyyy").parse(courseDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return new SimpleDateFormat("dd/MM/yyyy").format(_courseDate);
+        return courseDate.toString();
     }
 
     public String getName() {

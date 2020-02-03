@@ -3,22 +3,24 @@ package com.app.controller;
 import com.app.seminar.SeminarDetails;
 
 public class CsvController implements Controller {
-    private final String _path;
-
-    public CsvController() {
-        _path = "/course/csv";
-    }
 
     @Override
     public boolean handles(String route) {
-        return _path.equals(route);
+        return route.contains("/csv");
     }
 
     @Override
     public void execute(Context context) throws Exception {
-//        context.response().setContentType("text/csv");
         context.response().setCharacterEncoding("UTF-8");
-        context.response().getWriter().write(new SeminarDetails().renderCsv());
+        context.response().getWriter().write(new SeminarDetails(courseNameFromUri(context)).renderCsv());
+    }
+    
+    private String courseNameFromUri(Context context) {
+        String uri = context.request().getRequestURI();
+        String courseName = uri;
+        courseName = uri.substring(uri.indexOf("/")+1, uri.lastIndexOf("/"));
+        courseName = courseName.substring(0, 1).toUpperCase() + courseName.substring(1);
+        return courseName;
     }
 
 }

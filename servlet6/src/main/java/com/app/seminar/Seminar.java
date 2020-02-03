@@ -3,8 +3,6 @@ package com.app.seminar;
 import static com.github.manliogit.javatags.lang.HtmlHelper.*;
 import static java.util.Arrays.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,6 +13,7 @@ public class Seminar {
     private final String _location;
     private final Course _course;
     private final List<Student> _students;
+    private final String _fileName = "";
 
     public Seminar(String location, int totalSeats, Course course) {
         _students = new ArrayList<Student>();
@@ -62,7 +61,6 @@ public class Seminar {
     public String renderRaw() {
 
         List<List<String>> data = new ArrayList<List<String>>();
-
         data.add(asList(
             getNumber(),
             getName(),
@@ -76,14 +74,13 @@ public class Seminar {
         }
 
         String result = new RawRenderer(data).render();
-        writeOnFile(result, getName());
+        // writeOnFile(result, getName());
         return result;
     }
 
     public String renderHtml() {
 
         List<HtmlRenderer> studentList = new ArrayList<HtmlRenderer>();
-
         for (Student student : getStudentList()) {
             studentList.add(new HtmlRenderer().li(student.getName() + " " + student.getLastName()));
         }
@@ -121,27 +118,21 @@ public class Seminar {
         }
 
         String result = new CsvRenderer(data).render();
-        writeOnFile(result, getName());
+        // writeOnFile(result, getName());
         return result;
     }
 
-    private void writeOnFile(String seminarInfo, String fileName) {
-        try {
-            FileWriter fw = new FileWriter(fileName + ".csv");
-            fw.write(seminarInfo);
-            fw.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    // private void writeOnFile(String seminarInfo, String fileName) {
+    // try {
+    // FileWriter fw = new FileWriter(fileName + ".csv");
+    // fw.write(seminarInfo);
+    // fw.close();
+    // } catch (IOException e) {
+    // throw new RuntimeException(e);
+    // }
+    // }
 
     public String renderHtmlLayout() {
-//        String studentsList = "";
-//       
-//        for (Student student : getStudentList()) {
-//            studentsList += ul(text(student.getName() + " " + student.getLastName())).render();
-//        }
-
         return html5(
             head(
                 meta(attr("charset -> utf-8")),
@@ -159,6 +150,18 @@ public class Seminar {
                             li(getStartDate().toString()),
                             li(getLocation()),
                             li(String.valueOf(getSeatsLeft()))),
-                        div(text("Partecipanti:")))))).render();
+                        div(text("Partecipanti:"), text(getStudentData())))))).render();
+    }
+
+    private String getStudentData() {
+        String studentinfo = "";
+        for (Student student : getStudentList()) {
+            studentinfo += li(student.getName() + " " + student.getLastName()).render();
+        }
+        return studentinfo;
+    }
+
+    public String getFileName() {
+        return _fileName;
     }
 }

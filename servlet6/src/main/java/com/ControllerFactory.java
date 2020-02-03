@@ -8,12 +8,14 @@ import java.util.List;
 import com.app.controller.Controller;
 import com.app.controller.CsvController;
 import com.app.controller.HtmlController;
+import com.app.controller.MainController;
 import com.app.controller.RawController;
 
 public class ControllerFactory {
 
     public List<Controller> create() {
         return new ArrayList<Controller>(
-            asList(new HtmlController(), new CsvController(), new RawController()));
+            asList(new HtmlController(), new CsvController(), new RawController(),
+                new MainController()));
     }
 }

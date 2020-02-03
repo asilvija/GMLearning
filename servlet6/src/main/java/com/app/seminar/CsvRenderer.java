@@ -1,12 +1,14 @@
 package com.app.seminar;
+
 import java.util.List;
 
 public class CsvRenderer implements Renderer {
     private final List<List<String>> _data;
 
     private final String _fieldSeparator = ";";
-    private final String _textDelimiter = "\"";
+    private final static String _textDelimiter = "\"";
 
+    @Override
     public String render() {
         String result = "";
 
@@ -15,7 +17,6 @@ public class CsvRenderer implements Renderer {
                 result += getTextDelimiter() + value + getTextDelimiter() + getFieldSeparator();
             }
             result += "\n";
-
         }
         return result;
     }
@@ -32,4 +33,7 @@ public class CsvRenderer implements Renderer {
         return _textDelimiter;
     }
 
+    public static String removeTextDelimiter(String text) {
+        return text.replace(_textDelimiter, "");
+    }
 }

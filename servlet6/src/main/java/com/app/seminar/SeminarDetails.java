@@ -1,15 +1,23 @@
 package com.app.seminar;
 
 public class SeminarDetails {
+    private static String _courseName = "";
+
+    public SeminarDetails(String courseName) {
+        _courseName = courseName;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(_courseName);
+        try {
+            new Store().readFromCsvFile(_courseName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static Seminar prepareSeminarData() {
-        String courseDate = "28.03.2020";
-        Seminar english = new Seminar("Lugano", 10, new Course("1", "English", "A1", courseDate));
-
-        english.addStudent(new Student("Anna", "Marchi"));
-        english.addStudent(new Student("Marco", "Ruggieri"));
-
-        return english;
+        return new Store().readFromCsvFile(_courseName);
     }
 
     public String renderCsv() {

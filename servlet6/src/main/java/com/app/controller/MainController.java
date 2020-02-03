@@ -1,13 +1,9 @@
 package com.app.controller;
 
-public class MainController implements Controller {
-    private final String _path;
-//    private final String _type;
+import com.app.view.Layout;
 
-    public MainController(String path) {
-        _path = "/course/" + path;
-//        _type = path;
-    }
+public class MainController implements Controller {
+    private final String _path ="/course/create";
 
     @Override
     public boolean handles(String route) {
@@ -18,6 +14,6 @@ public class MainController implements Controller {
     public void execute(Context context) throws Exception {
         context.response().setContentType("text/html");
         context.response().setCharacterEncoding("UTF-8");
-//        context.response().getWriter().write(new SeminarDetails().render(_type));
+        context.response().getWriter().write(new Layout().buildHtml().render());
     }
 }

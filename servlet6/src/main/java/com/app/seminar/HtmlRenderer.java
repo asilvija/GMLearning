@@ -10,10 +10,6 @@ public class HtmlRenderer implements Renderer {
     private String _value ="";
     private final List<HtmlRenderer> _children = new ArrayList<HtmlRenderer>();
     
-    public String render1() {
-        
-        return "";
-    }
     @Override
     public String render() {
         if (getTagName().equals("link")) {
