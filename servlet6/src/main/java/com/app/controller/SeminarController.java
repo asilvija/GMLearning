@@ -27,7 +27,8 @@ public class SeminarController implements Controller {
             Seminar seminar = new Seminar(context.request().getParameter("location"), 12,
                 new Course("23", context.request().getParameter("name"), "A1", "23/02/2020"));
             new Store().writeOnFile(seminar.renderCsv(), context.request().getParameter("name"));
-            form.withInfo(context.request().getParameter("name") + " is created!");
+            context.response().sendRedirect("/course");
+//            form.withInfo(context.request().getParameter("name") + " is created!");
         }
         context.response().getWriter().write(form.buildHtml().render());
     }
