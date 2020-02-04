@@ -14,7 +14,7 @@ public class SeminarController implements Controller {
 
     @Override
     public boolean handles(String route) {
-        return _path.equals(route);
+        return (_path.equals(route)|| _path.equals(route));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SeminarController implements Controller {
     }
     
     private ArrayList<HashMap<String, String>> formFields() {
-        ArrayList data = new ArrayList();
+        ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
         
         HashMap<String, String> map = new HashMap<String, String>() {{
             put("Course Name", "name");

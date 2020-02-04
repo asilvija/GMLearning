@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Store {
     public Seminar readFromCsvFile(String courseName) {
-        BufferedReader csvReader = openReader(courseName + ".csv");
+        BufferedReader csvReader = openReader(courseName);
         String row;
         try {
             row = csvReader.readLine();

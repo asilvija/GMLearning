@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.app.controller.Controller;
-import com.app.controller.SeminarController;
 import com.app.controller.CsvController;
 import com.app.controller.HtmlController;
 import com.app.controller.RawController;
+import com.app.controller.SeminarController;
+import com.app.controller.SeminarListController;
 
 public class ControllerFactory {
 
@@ -19,7 +20,8 @@ public class ControllerFactory {
                 new HtmlController(),
                 new CsvController(),
                 new RawController(),
-                new SeminarController()
+                new SeminarController(),
+                new SeminarListController()
             )
         );
     }

@@ -78,30 +78,6 @@ public class Seminar {
         return result;
     }
 
-    public String renderHtml() {
-
-        List<HtmlRenderer> studentList = new ArrayList<HtmlRenderer>();
-        for (Student student : getStudentList()) {
-            studentList.add(new HtmlRenderer().li(student.getName() + " " + student.getLastName()));
-        }
-
-        return new HtmlRenderer().html(
-            new HtmlRenderer().head(
-                new HtmlRenderer().title(getName()),
-                new HtmlRenderer().link("rel=\"stylesheet\" type=\"text/css\" href=\"../css/bootstrap.min.css\"")),
-
-            new HtmlRenderer().body(
-                new HtmlRenderer().div("Nome Corso:" + getName()),
-                new HtmlRenderer().ul(
-                    new HtmlRenderer().li(getDescription()),
-                    new HtmlRenderer().li(getStartDate().toString()),
-                    new HtmlRenderer().li(getLocation()),
-                    new HtmlRenderer().li(String.valueOf(getSeatsLeft()))),
-                new HtmlRenderer().div("Partecipanti:"),
-                new HtmlRenderer().ul(studentList.toArray(new HtmlRenderer[] {}))))
-            .render();
-    }
-
     public String renderCsv() {
         List<List<String>> data = new ArrayList<List<String>>();
 
@@ -131,15 +107,23 @@ public class Seminar {
                 text("<!-- Bootstrap core CSS -->"),
                 link(attr("href -> ../css/bootstrap.min.css", "rel -> stylesheet"))),
             body(
-                div(attr("class -> container"),
-                    div(attr("class -> jumbotron"),
-                        h2(text("Nome Corso: " + getName())),
-                        ul(li(getDescription()),
-                            li(getStartDate().toString()),
-                            li(getLocation()),
-                            li(String.valueOf(getSeatsLeft()))),
-                        div(text("Partecipanti:"), getStudentData()))))).render();
+                generateHtmlLayout())).render();
     }
+    
+    public String generateHtmlLayout() {
+        return  div(attr("class -> container"),
+            div(attr("class -> jumbotron"),
+                h2(text("Nome Corso: " + getName())),
+                ul(li(getDescription()),
+                    li(getStartDate().toString()),
+                    li(getLocation()),
+                    li(String.valueOf(getSeatsLeft()))),
+                div(text("Partecipanti:"), getStudentData()))).render();
+    
+    }
+    
+   
+
 
     private String getStudentData() {
         String studentinfo = "";
