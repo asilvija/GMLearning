@@ -28,4 +28,8 @@ public class Context {
 	public Connection connection() {
 		return _connection;
 	}
+
+    public boolean isPost() {
+        return request().getMethod().equals("POST");
+    }
 }

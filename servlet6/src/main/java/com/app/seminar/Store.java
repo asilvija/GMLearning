@@ -3,11 +3,11 @@ package com.app.seminar;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Store {
     public Seminar readFromCsvFile(String courseName) {
-        System.out.println(courseName + ".csv");
         BufferedReader csvReader = openReader(courseName + ".csv");
         String row;
         try {
@@ -16,8 +16,6 @@ public class Store {
             throw new RuntimeException(e);
         }
         String courseDetails[] = row.split(";");
-
-        System.out.println(courseDetails[0]);
 
         Seminar seminar = new Seminar(CsvRenderer.removeTextDelimiter(courseDetails[3]),
             Integer.parseInt(CsvRenderer.removeTextDelimiter(courseDetails[4])),
@@ -39,6 +37,17 @@ public class Store {
         System.out.println(seminar.getName() + " " + seminar.getLocation());
         closeReader(csvReader);
         return seminar;
+    }
+
+    public void writeOnFile(String seminarInfo, String fileName) {
+        try {
+            fileName = fileName.substring(0, 1).toUpperCase() + fileName.substring(1);
+            FileWriter fw = new FileWriter(fileName + ".csv");
+            fw.write(seminarInfo);
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private BufferedReader openReader(String courseName) {

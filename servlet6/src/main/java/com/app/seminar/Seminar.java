@@ -116,21 +116,9 @@ public class Seminar {
         for (Student student : _students) {
             data.add(asList(student.getName(), student.getLastName()));
         }
-
-        String result = new CsvRenderer(data).render();
-        // writeOnFile(result, getName());
-        return result;
+        
+        return new CsvRenderer(data).render();
     }
-
-    // private void writeOnFile(String seminarInfo, String fileName) {
-    // try {
-    // FileWriter fw = new FileWriter(fileName + ".csv");
-    // fw.write(seminarInfo);
-    // fw.close();
-    // } catch (IOException e) {
-    // throw new RuntimeException(e);
-    // }
-    // }
 
     public String renderHtmlLayout() {
         return html5(
@@ -150,7 +138,7 @@ public class Seminar {
                             li(getStartDate().toString()),
                             li(getLocation()),
                             li(String.valueOf(getSeatsLeft()))),
-                        div(text("Partecipanti:"), text(getStudentData())))))).render();
+                        div(text("Partecipanti:"), getStudentData()))))).render();
     }
 
     private String getStudentData() {

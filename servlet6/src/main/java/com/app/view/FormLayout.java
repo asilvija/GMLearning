@@ -2,9 +2,27 @@ package com.app.view;
 
 import static com.github.manliogit.javatags.lang.HtmlHelper.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.github.manliogit.javatags.element.Element;
 
-public class Layout {
+public class FormLayout {
+    
+    private final String _title;
+    private String _info = "";
+    private final ArrayList<HashMap<String, String>> _data;
+
+    public FormLayout(String title, ArrayList<HashMap<String, String>> list) {
+        _title = title;
+        _data = list;
+    }
+    
+    public FormLayout withInfo(String info) {
+        _info = info;
+        return this;
+    }
+
     public Element buildHtml() {
         return html5(
             meta(attr("lang -> en")),
@@ -12,8 +30,7 @@ public class Layout {
                 meta(attr("charset -> utf-8")),
                 meta(attr("http-equiv -> X-UA-Compatible", "content -> IE=edge")),
                 meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
-                title(
-                    "Seminar"),
+                title(_title),
                 text("<!-- Bootstrap core CSS -->"),
                 link(attr("href -> ../css/bootstrap.min.css", "rel -> stylesheet"))),
             body(
@@ -21,38 +38,41 @@ public class Layout {
                     div(attr("class -> row"),
                         div(attr("class -> col-md-6 col-md-offset-3"),
                             h1(attr("class -> page-header text-center"),
-                                text("Contact Form Example")),
+                                text("Course Creation")),
                             form(
                                 attr("class -> form-horizontal", "role -> form", "method -> post",
                                     "action -> create"),
-                                div(attr("class -> form-group"),
-                                    label(attr("for -> name", "class -> col-sm-3 control-label"),
-                                        text("Course Name")),
-                                    div(attr("class -> col-sm-9"),
-                                        input(
-                                            attr("type -> text", "class -> form-control", "id -> name",
-                                                "name -> name",
-                                                "placeholder -> Course Name")))),
-
-                                div(attr("class -> form-group"),
-                                    label(attr("for -> location", "class -> col-sm-3 control-label"),
-                                        text("Location")),
-                                    div(attr("class -> col-sm-9"),
-                                        input(
-                                            attr("type -> text", "class -> form-control", "id -> location",
-                                                "name -> location",
-                                                "placeholder -> Location")))),
+                                createFormFields(),
                                 div(attr("class -> form-group"),
                                     label(attr("for -> location", "class -> col-sm-2-offset-2")),
                                     div(attr("class -> col-sm-10"),
                                         input(
                                             attr("type -> submit", "class -> btn btn-primary", "id -> submit",
                                                 "name -> submit",
-                                                "value -> Send")))))
-
-                        )))),
+                                                "value -> Send"))))
+                            ),
+                            text(_info))))),
             script(attr("src -> ../js/jquery.min.js")),
             script(attr("src -> ../js/bootstrap.min.js")));
     }
 
+    private Element createFormFields() {
+        Element form = group();
+      
+        for (HashMap<String, String> entry : _data) {
+            for (String label : entry.keySet()) {
+                String name = entry.get(label);
+                form.add(div(attr("class -> form-group"),
+                    label(attr("for -> name", "class -> col-sm-3 control-label"),
+                        text(label)),
+                    div(attr("class -> col-sm-9"),
+                        input(
+                            attr("type -> text", 
+                                 "class -> form-control", "id -> " + name + "",
+                                 "name -> " + name + "",
+                                 "placeholder -> " + label + "")))));
+            }
+        }
+        return form;
+    }
 }
