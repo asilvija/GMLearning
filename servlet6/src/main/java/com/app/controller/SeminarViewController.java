@@ -2,7 +2,7 @@ package com.app.controller;
 
 import com.app.seminar.SeminarDetails;
 
-public class SeminarListController implements Controller {
+public class SeminarViewController implements Controller {
     private final String _path = "/course";
 
     @Override

@@ -8,6 +8,6 @@ public class MainControllerTest {
 
 	@Test
 	public void handlesRoute() throws Exception {
-		assertTrue(new SeminarController().handles("/"));
+		assertTrue(new SeminarCreationController().handles("/"));
 	}
 }

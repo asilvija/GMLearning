@@ -8,13 +8,13 @@ import com.app.seminar.Seminar;
 import com.app.seminar.Store;
 import com.app.view.FormLayout;
 
-public class SeminarController implements Controller {
+public class SeminarCreationController implements Controller {
     
     private final String _path = "/course/create";
 
     @Override
     public boolean handles(String route) {
-        return (_path.equals(route)|| _path.equals(route));
+        return _path.equals(route);
     }
 
     @Override
@@ -38,7 +38,9 @@ public class SeminarController implements Controller {
         
         HashMap<String, String> map = new HashMap<String, String>() {{
             put("Course Name", "name");
+            put("Start Date", "start");
             put("Location", "location");
+            put("Total Seats", "seats");
         }};
 
         data.add(map);

@@ -32,20 +32,20 @@ public class FormLayout {
                 meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
                 title(_title),
                 text("<!-- Bootstrap core CSS -->"),
-                link(attr("href -> ../css/bootstrap.min.css", "rel -> stylesheet"))),
+                link(attr("href -> /css/bootstrap.min.css", "rel -> stylesheet"))),
             body(
                 div(attr("class -> container"),
                     div(attr("class -> row"),
-                        div(attr("class -> col-md-6 col-md-offset-3"),
+                        div(attr("class -> col-6 offset-2"),
                             h1(attr("class -> page-header text-center"),
                                 text("Course Creation")),
                             form(
-                                attr("class -> form-horizontal", "role -> form", "method -> post",
+                                attr("class -> needs-validation", "role -> form", "method -> post",
                                     "action -> create"),
                                 createFormFields(),
                                 div(attr("class -> form-group"),
-                                    label(attr("for -> location", "class -> col-sm-2-offset-2")),
-                                    div(attr("class -> col-sm-10"),
+                                    label(attr("for -> location", "class -> col-2")),
+                                    div(
                                         input(
                                             attr("type -> submit", "class -> btn btn-primary", "id -> submit",
                                                 "name -> submit",
@@ -63,14 +63,14 @@ public class FormLayout {
             for (String label : entry.keySet()) {
                 String name = entry.get(label);
                 form.add(div(attr("class -> form-group"),
-                    label(attr("for -> name", "class -> col-sm-3 control-label"),
+                    label(attr("for -> name", "class -> col-3 control-label"),
                         text(label)),
-                    div(attr("class -> col-sm-9"),
+                    div(attr("class -> col-12"),
                         input(
                             attr("type -> text", 
                                  "class -> form-control", "id -> " + name + "",
                                  "name -> " + name + "",
-                                 "placeholder -> " + label + "")))));
+                                 "placeholder -> " + label + "", "required")))));
             }
         }
         return form;

@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.app.controller.Controller;
 import com.app.controller.PathController;
-import com.app.controller.SeminarController;
-import com.app.controller.SeminarListController;
+import com.app.controller.SeminarCreationController;
+import com.app.controller.SeminarViewController;
 
 public class ControllerFactory {
 
@@ -18,8 +18,8 @@ public class ControllerFactory {
                 new PathController(),
 //                new CsvController(),
 //                new RawController(),
-                new SeminarController(),
-                new SeminarListController()
+                new SeminarCreationController(),
+                new SeminarViewController()
             )
         );
     }
