@@ -72,10 +72,7 @@ public class Seminar {
         for (Student student : _students) {
             data.add(asList(student.getName(), student.getLastName()));
         }
-
-        String result = new RawRenderer(data).render();
-        // writeOnFile(result, getName());
-        return result;
+        return new RawRenderer(data).render();
     }
 
     public String renderCsv() {
