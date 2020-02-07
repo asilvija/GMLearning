@@ -1,16 +1,14 @@
 package com.app.controller;
 
-import java.util.regex.Pattern;
-
 import com.app.seminar.NoPageFound;
 
-public class PathController implements Controller {
+public class NotFoundController implements Controller {
 
     @Override
     public boolean handles(String route) {
-        
-        return !Pattern.matches(".*/course$", route) &&
-               !Pattern.matches(".*/course/create$", route);
+        return true;
+//        return !Pattern.matches(".*/course$", route) &&
+//               !Pattern.matches(".*/course/create$", route);
     }
 
     @Override

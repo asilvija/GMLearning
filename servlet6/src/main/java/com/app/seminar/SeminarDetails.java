@@ -46,7 +46,7 @@ public class SeminarDetails {
                 meta(attr("charset -> utf-8")),
                 meta(attr("http-equiv -> X-UA-Compatible", "content -> IE=edge")),
                 meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
-
+                title("Courses"),
                 link(attr("href -> ../css/bootstrap.min.css", "rel -> stylesheet"))),
             body(
                 content)).render();
