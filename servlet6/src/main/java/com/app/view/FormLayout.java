@@ -84,9 +84,10 @@ public class FormLayout {
                              "name -> name",
                              "placeholder -> Name", 
                              "required")
-                        ),
+                    ),
                     div(attr("class -> invalid-feedback"),
-                        text("Please insert course name."))
+                        text("Please insert course name.")
+                    )
                 )
              )
             
@@ -98,17 +99,21 @@ public class FormLayout {
                     text("Start Date")
                 ),
                 div(attr("class ->col-12 input-group date"),
-                    input(attr("type -> text", 
+                    input(
+                        attr("type -> text", 
                                "class -> form-control", 
                                "id -> datetimepicker",
                                "name -> startdate",
                                "placeholder -> Pick Date",
                                "data-date-format -> MM.DD.YYYY",
-                               "required"),
+                               "required")
+                    ),
                     div(attr("class -> invalid-feedback"),
-                            text("Please insert date.")))
+                        text("Please insert date.")
+                    )
                 )
-        ));
+             )
+         );
         
         form.add(
             div(attr("class -> form-group"),
@@ -124,7 +129,7 @@ public class FormLayout {
                              "name -> location",
                              "placeholder -> Location", 
                              "required")
-                        ),
+                    ),
                     div(attr("class -> invalid-feedback"),
                         text("Please insert location."))
                 )
@@ -146,7 +151,7 @@ public class FormLayout {
                              "placeholder -> Total Seats", 
                              "required", 
                              "min -> 1")
-                        ),
+                    ),
                     div(attr("class -> invalid-feedback"),
                         text("Please insert seats number (min value 1)."))
                 )

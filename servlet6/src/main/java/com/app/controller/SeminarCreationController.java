@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import java.util.HashMap;
+
 import com.app.seminar.Course;
 import com.app.seminar.Seminar;
 import com.app.seminar.Store;
@@ -32,14 +34,27 @@ public class SeminarCreationController implements Controller {
             context.response().sendRedirect("/course");
 //            form.withInfo(context.request().getParameter("name") + " is created!");
         }
+
+        
         CustomFormLayout customFormLayout = new CustomFormLayout();
         customFormLayout.insertRow();
-        customFormLayout.defaultInputField("name", "Name", "Name");
-        customFormLayout.datePickerInputField("startdate", "Start Date");
-        customFormLayout.defaultInputField("location", "Location", "Location");
-        customFormLayout.numericInputField("totalseats", "Total Seats", "Total Seats", "1", null);
+        customFormLayout.defaultInputField("name", "Name", "Name", "required", new HashMap<String, String>(){{
+            put("invalid-feedback", "Please insert name.");
+        }});
+        customFormLayout.datePickerInputField("startdate", "Start Date", "required", new HashMap<String, String>(){{
+            put("invalid-feedback", "Please insert start date.");
+        }});
+        customFormLayout.defaultInputField("location", "Location", "Location", "required", new HashMap<String, String>(){{
+            put("invalid-feedback", "Please insert Location.");
+        }});
+        customFormLayout.numericInputField("totalseats", "Total Seats", "Total Seats",null, "1", null, "required",new HashMap<String, String>(){{
+            put("invalid-feedback", "Please insert seats.");
+        }});
+        customFormLayout.numericInputField("number", "Number", "Number", "0","1", null, "", new HashMap<String, String>(){{
+            put("numfeed", "Please insert num < total seats");
+        }});
         customFormLayout.addSubmitButton("submit");
-//        new HtmlPage(customFormLayout).render();
+
         context.response().getWriter().write(new HtmlPage(customFormLayout).render());
     }
 

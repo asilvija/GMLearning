@@ -37,7 +37,8 @@ public class HtmlPage implements Element {
                         )
                      )
                 )
-            ),
+            )
+            ,
             script(attr("src -> /js/jquery.min.js")),
             script(attr("src -> /js/bootstrap.min.js")),
             script(attr("src -> /js/form-validation.js")),
@@ -48,7 +49,7 @@ public class HtmlPage implements Element {
 
     @Override
     public Element add(Element element) {
-        return null;
+        return this;
     }
 
 }
