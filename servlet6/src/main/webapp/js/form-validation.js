@@ -1,48 +1,90 @@
-
 //// Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
   'use strict';
   window.addEventListener('load', function() {
 	    // Fetch all the forms we want to apply custom Bootstrap validation styles to
 	    var forms = document.getElementsByClassName('needs-validation');
-
 	    // Loop over them and prevent submission
 	    var validation = Array.prototype.filter.call(forms, function(form) {
 
 	      form.addEventListener('submit', function(event) {
-	    	  form.classList.add('was-validated');
-	    	  if (checkFormValidity(form)) {}
-
-	    	  else {	 
-	    		  if (document.getElementsByClassName("numfeed")[0] != null) {
-			  		setNumFeed ();
-			  	  } else {
-			  		stopPropagation();
-			  	  }
-	    	  }
+//	    	form.classList.add('was-validated');
+	    	checkFormValidity(form);
 	      }, false);
 	    });
 	  }, false);
-  
-
 })();
 
-function setNumFeed () {
-	if (checkSeatsValidity(numberPartecipiants(), availableSeats())) {
-	  	  displayInvalidFeedback("numfeed", "block");
-	  	  stopPropagation();
-	} else {
-	  displayInvalidFeedback("numfeed", "none")
-	}
+function showFeed (el) {
+	document.getElementsByClassName(el)[0].style.display = "block";
+	document.getElementById(el).classList.add("is-invalid");
+	document.getElementById(el).classList.remove("is-invalid");
+  	stopPropagation();
+}
+
+function hideFeed (el) {
+	document.getElementsByClassName(el)[0].style.display = "none";
+	document.getElementById(el).classList.add("is-valid");
+	document.getElementById(el).classList.remove("is-invalid");
+	stopPropagation();
+}
+
+function setValidField (el) {
+	document.getElementById(el).classList.add("is-valid");
+	document.getElementById(el).classList.remove("is-invalid");	
+}
+
+function setInvalidField (el) {
+	document.getElementById(el).classList.add("is-invalid");
+	document.getElementById(el).classList.remove("is-valid");	
 }
 
 function checkFormValidity(form) {
-  if (form.checkValidity() === false) {
-	  stopPropagation();
-	  return true;
-  }
-  return false;
+	if (form.checkValidity() === false) {
+		stopPropagation();
+	}
+  
+	var letters = /^[A-Za-z]+$/;
+	if (fieldValidation("name", letters)) {
+		maxLengthValidation("name", 15);
+	}
+	
+	if (fieldValidation("location", letters)) {
+		maxLengthValidation("location", 20);
+	}
+  
+	var digits = /^\d+$/;
+	if (fieldValidation("totalseats", digits)) {
+		maxLengthValidation("totalseats", 2);
+	}
 }
+
+function fieldValidation(fieldName, rule) {
+	if (document.getElementById(fieldName) != null) {
+		  if (document.getElementById(fieldName).value != "" && 
+			 !document.getElementById(fieldName).value.match(rule)) {
+			  showFeed(fieldName);
+			  return false;
+		  } else if (document.getElementById(fieldName).value == "") {
+			  setInvalidField(fieldName);
+			  return false;
+		  } else {
+			  hideFeed(fieldName);
+			  setValidField(fieldName);
+			  return true;
+		  }
+	 }
+}
+
+function maxLengthValidation(el, maxLength) {
+	if (document.getElementById(el) != null) {
+		if (document.getElementById(el).value != "") {
+			var text = document.getElementById(el).value;
+			text.length <= maxLength ? hideFeed(el) : showFeed(el);
+		}
+	}
+}
+
 function numberPartecipiants() {
 	var numberPartecipiants  = 0;
 	if (document.getElementById("number") != null) {
@@ -51,25 +93,9 @@ function numberPartecipiants() {
 	return numberPartecipiants;
 }
 
-function availableSeats() {
-	var availableSeats  = 0;
-	if (document.getElementById("totalseats") != null) {
-		availableSeats = document.getElementById("totalseats").value;
-	}
-	return availableSeats;
-}
-
-function checkSeatsValidity (numberPartecipiants, availableSeats) {
-	return numberPartecipiants > availableSeats;
-}
-
-function displayInvalidFeedback(field, value) {
-	 document.getElementsByClassName(field)[0].style.display = value;
-}
-
 function stopPropagation () {
-	  event.preventDefault();
-      event.stopPropagation();
+	event.preventDefault();
+	event.stopPropagation();
 }
 
 $(document).ready(function() {

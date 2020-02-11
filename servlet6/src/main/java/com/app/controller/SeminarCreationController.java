@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import com.app.seminar.Course;
@@ -22,8 +23,7 @@ public class SeminarCreationController implements Controller {
         context.response().setContentType("text/html");
         context.response().setCharacterEncoding("UTF-8");
         
-//        FormLayout form = new FormLayout("Seminar", formFields());
-        if (context.isPost()) {           
+        if (context.isPost()) {    
             Seminar seminar = new Seminar(
                 context.request().getParameter("location"), 
                 Integer.parseInt(context.request().getParameter("totalseats")),
@@ -32,30 +32,32 @@ public class SeminarCreationController implements Controller {
             
             new Store().writeOnFile(seminar.renderCsv(), context.request().getParameter("name"));
             context.response().sendRedirect("/course");
-//            form.withInfo(context.request().getParameter("name") + " is created!");
         }
+        viewForm(context);
+    }
 
-        
+    private void viewForm(Context context) throws IOException {
         CustomFormLayout customFormLayout = new CustomFormLayout();
         customFormLayout.insertRow();
-        customFormLayout.defaultInputField("name", "Name", "Name", "required", new HashMap<String, String>(){{
+        customFormLayout.defaultInputField("name", "Name", "Name", "required","15" ,new HashMap<String, String>(){{
             put("invalid-feedback", "Please insert name.");
+            put("name", "Please insert text <= 15 chars.");
         }});
         customFormLayout.datePickerInputField("startdate", "Start Date", "required", new HashMap<String, String>(){{
             put("invalid-feedback", "Please insert start date.");
         }});
-        customFormLayout.defaultInputField("location", "Location", "Location", "required", new HashMap<String, String>(){{
-            put("invalid-feedback", "Please insert Location.");
+        customFormLayout.defaultInputField("location", "Location", "Location", "required", "20",new HashMap<String, String>(){{
+            put("invalid-feedback", "Please insert location.");
+            put("location", "Please insert text <= chars.");
         }});
-        customFormLayout.numericInputField("totalseats", "Total Seats", "Total Seats",null, "1", null, "required",new HashMap<String, String>(){{
+        customFormLayout.numericInputField("totalseats", "Total Seats", "Total Seats",null, "1", "3", "required",new HashMap<String, String>(){{
             put("invalid-feedback", "Please insert seats.");
+            put("totalseats", "Please insert number < 100.");
         }});
-        customFormLayout.numericInputField("number", "Number", "Number", "0","1", null, "", new HashMap<String, String>(){{
-            put("numfeed", "Please insert num < total seats");
+        customFormLayout.numericInputField("id", "Id", "Id", null,"1", null, "required", new HashMap<String, String>(){{
+            put("invalid-feedback","Please insert valid id.");
         }});
         customFormLayout.addSubmitButton("submit");
-
         context.response().getWriter().write(new HtmlPage(customFormLayout).render());
     }
-
 }

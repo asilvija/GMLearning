@@ -23,7 +23,9 @@ public class CustomFormLayout implements Element {
                 "class -> needs-validation",
                 "method -> post",
                 "action -> create",
-                "role -> form", "novalidate"),
+                "role -> form"
+                , "novalidate"
+                ),
             _content).render();
     }
 
@@ -32,7 +34,7 @@ public class CustomFormLayout implements Element {
         return this;
     }
 
-    public Element defaultInputField(String name, String label, String placeholder, String required, Map<String, String> feedback) {
+    public Element defaultInputField(String name, String label, String placeholder, String required, String maxLength, Map<String, String> feedback) {
         add(
             div(attr("class -> form-group"),
                 label(
@@ -46,7 +48,9 @@ public class CustomFormLayout implements Element {
                             .add("class", "form-control")
                             .add("id", name)
                             .add("name", name)
-                            .add("placeholder", placeholder)),
+                            .add("placeholder", placeholder)
+                            .add("maxlength", maxLength)
+                            ),
                     feedBack(feedback)
                     )));
         return this;
