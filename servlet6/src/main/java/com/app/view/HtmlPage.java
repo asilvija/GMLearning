@@ -23,7 +23,7 @@ public class HtmlPage implements Element {
                 meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
                 title(_title ),
                 text("<!-- Bootstrap core CSS -->"),
-                link(attr("href -> /css/bootstrap.min.css", "rel -> stylesheet")),
+                link(attr("href -> /css/bootstrap.min-4.0.0.css", "rel -> stylesheet")),
                 link(attr("href -> /css/bootstrap-datetimepicker.min.css", "rel -> stylesheet")),
                 link(attr("href -> /css/form-validation.css", "rel -> stylesheet"))
             ),
@@ -40,7 +40,7 @@ public class HtmlPage implements Element {
             )
             ,
             script(attr("src -> /js/jquery.min.js")),
-            script(attr("src -> /js/bootstrap.min.js")),
+            script(attr("src -> /js/bootstrap.min-4.0.0.js")),
             script(attr("src -> /js/form-validation.js")),
             script(attr("src -> https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js")),
             script(attr("src -> /js/bootstrap-datetimepicker.min.js"))

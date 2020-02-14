@@ -24,11 +24,11 @@ public class WriteOnFileTest {
         BufferedReader _input = new BufferedReader(new FileReader("English.csv"));
 
         String attributes[] = _input.readLine().split(";");
-        assertThat(attributes[0], is("\"1\""));
-        assertThat(attributes[1], is("\"English\""));
-        assertThat(attributes[2], is("\"A1\""));
-        assertThat(attributes[3], is("\"Lugano\""));
-        assertThat(attributes[4], is("\"8\""));
+        assertThat(attributes[0], is("1"));
+        assertThat(attributes[1], is("English"));
+        assertThat(attributes[2], is("A1"));
+        assertThat(attributes[3], is("Lugano"));
+        assertThat(attributes[4], is("3"));
         _input.close();
     }
 }

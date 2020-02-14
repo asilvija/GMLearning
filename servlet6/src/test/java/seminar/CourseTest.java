@@ -13,8 +13,8 @@ public class CourseTest {
         Course course = new Course("1", "English", "A1", courseDate);
 
         assertThat(course.getName(), is("English"));
-        assertThat(course.getNumber(), is("1"));
+        assertThat(course.getId(), is("1"));
         assertThat(course.getDescription(), is("A1"));
-        assertThat(course.getStartDate(), is("28/03/2020"));
+        assertThat(course.getStartDate(), is("28.03.2020"));
     }
 }

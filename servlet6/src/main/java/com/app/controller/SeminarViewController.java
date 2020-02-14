@@ -1,13 +1,15 @@
 package com.app.controller;
 
+import java.util.regex.Pattern;
+
 import com.app.seminar.SeminarDetails;
 
 public class SeminarViewController implements Controller {
-    private final String _path = "/course";
+//    private final String _path = "/course";
 
     @Override
     public boolean handles(String route) {
-        return _path.equals(route);
+        return Pattern.matches("^(/course|/)$", route);
     }
 
     @Override

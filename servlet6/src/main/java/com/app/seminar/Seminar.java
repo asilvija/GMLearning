@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.github.manliogit.javatags.element.Element;
+
 public class Seminar {
 
     private final int _totalSeats;
@@ -33,6 +35,10 @@ public class Seminar {
     public String getDescription() {
         return _course.getDescription();
     }
+    
+    public String getId() {
+        return _course.getId();
+    }
 
     public String getLocation() {
         return _location;
@@ -41,6 +47,11 @@ public class Seminar {
     public int getSeatsLeft() {
         return _totalSeats - _students.size();
     }
+    
+    public String getTotalSeats() {
+        return Integer.toString(_totalSeats);
+    }
+
 
     public Collection<Student> getStudentList() {
         return _students;
@@ -54,15 +65,11 @@ public class Seminar {
         return _course;
     }
 
-    public String getNumber() {
-        return getCourse().getNumber();
-    }
-
     public String renderRaw() {
 
         List<List<String>> data = new ArrayList<List<String>>();
         data.add(asList(
-            getNumber(),
+            getId(),
             getName(),
             getDescription(),
             getLocation(),
@@ -79,7 +86,7 @@ public class Seminar {
         List<List<String>> data = new ArrayList<List<String>>();
 
         data.add(asList(
-            getNumber(),
+            getId(),
             getName(),
             getDescription(),
             getLocation(),
@@ -93,42 +100,23 @@ public class Seminar {
         return new CsvRenderer(data).render();
     }
 
-    public String renderHtmlLayout() {
-        return html5(
-            head(
-                meta(attr("charset -> utf-8")),
-                meta(attr("http-equiv -> X-UA-Compatible", "content -> IE=edge")),
-                meta(attr("name -> viewport", "content -> width=device-width, initial-scale=1")),
-                title(
-                    getName()),
-                text("<!-- Bootstrap core CSS -->"),
-                link(attr("href -> ../css/bootstrap.min.css", "rel -> stylesheet"))),
-            body(
-                generateHtmlLayout())).render();
+    public Element renderHtmlLayout() {
+        return group().add(tr(
+            th(getId()),
+            th(getName()),
+            th(getLocation()),
+            th(getTotalSeats()),
+            th(getStartDate())
+         ));
     }
-    
-    public String generateHtmlLayout() {
-        return  div(attr("class -> container"),
-            div(attr("class -> jumbotron"),
-                h2(text("Nome Corso: " + getName())),
-                ul(li(getDescription()),
-                    li(getStartDate().toString()),
-                    li(getLocation()),
-                    li(String.valueOf(getSeatsLeft()))),
-                div(text("Partecipanti:"), getStudentData()))).render();
-    
-    }
-    
-   
-
-
-    private String getStudentData() {
-        String studentinfo = "";
-        for (Student student : getStudentList()) {
-            studentinfo += li(student.getName() + " " + student.getLastName()).render();
-        }
-        return studentinfo;
-    }
+        
+//    private String getStudentData() {
+//        String studentinfo = "";
+//        for (Student student : getStudentList()) {
+//            studentinfo += li(student.getName() + " " + student.getLastName()).render();
+//        }
+//        return studentinfo;
+//    }
 
     public String getFileName() {
         return _fileName;

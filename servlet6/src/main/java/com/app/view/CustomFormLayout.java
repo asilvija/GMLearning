@@ -40,9 +40,9 @@ public class CustomFormLayout implements Element {
                 label(
                     attr(
                         "for -> " + name + "",
-                        "class -> col-3 control-label"),
+                        "class -> col-lg-3 control-label"),
                     text(label)),
-                div(attr("class -> col-12"),
+                div(attr("class -> col-lg-12"),
                     input(
                         attr("type -> text", required)
                             .add("class", "form-control")
@@ -63,9 +63,9 @@ public class CustomFormLayout implements Element {
                 label(
                     attr(
                         "for -> " + name + "",
-                        "class -> col-3 control-label"),
+                        "class -> col-lg-3 control-label"),
                     text(label)),
-                div(attr("class -> col-12"),
+                div(attr("class -> col-lg-12"),
                     input(
                         attr("type -> number",
                             required)
@@ -99,9 +99,9 @@ public class CustomFormLayout implements Element {
         add(
             div(attr("class -> form-group"),
                 label(attr("for -> " + name + "",
-                    "class -> col-3 control-label"),
+                    "class -> col-lg-3 control-label"),
                     text(label)),
-                div(attr("class ->col-12 input-group date"),
+                div(attr("class ->col-lg-12"),
                     input(
                         attr("type -> text",
                             required)
@@ -117,7 +117,7 @@ public class CustomFormLayout implements Element {
 
     public Element addSubmitButton(String name) {
         add(div(attr("class -> form-group"),
-            label(attr("class -> col-2")),
+            label(attr("class -> col-lg-2")),
             div(
                 input(
                     attr("type -> submit")

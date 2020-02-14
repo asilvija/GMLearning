@@ -2,13 +2,14 @@ package com.app.seminar;
 
 public class Course {
 
-    private final String _number;
+//    private final String _id;
+    private final String _id;
     private final String _name;
     private final String _description;
     private final String _startDate;
 
-    public Course(String number, String name, String description, String courseDate) {
-        _number = number;
+    public Course(String id, String name, String description, String courseDate) {
+        _id = id;
         _name = name;
         _description = description;
         _startDate = formatDate(courseDate);
@@ -22,15 +23,15 @@ public class Course {
         return _name;
     }
 
-    public String getNumber() {
-        return _number;
-    }
-
     public String getDescription() {
         return _description;
     }
 
     public String getStartDate() {
         return _startDate;
+    }
+
+    public String getId() {
+        return _id;
     }
 }
