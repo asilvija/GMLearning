@@ -1,5 +1,4 @@
 package com.app.seminar;
-
 import static com.github.manliogit.javatags.lang.HtmlHelper.*;
 import static java.util.Arrays.*;
 

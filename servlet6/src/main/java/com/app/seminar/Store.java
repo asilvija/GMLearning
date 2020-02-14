@@ -5,9 +5,30 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class Store {
     public Seminar readFromCsvFile(String courseName) {
+        DataSource ds;
+        Connection conn = null;
+        try {
+            ds = (DataSource)new InitialContext().lookup("java:/comp/env/jdbc/prod");
+        } catch (NamingException e1) {
+            throw new RuntimeException(e1);
+        }
+        try {
+            conn = ds.getConnection();
+        } catch (SQLException e1) {
+            throw new RuntimeException(e1);
+        } finally {
+            connectionClose(conn);
+        };
+        
         BufferedReader csvReader = openReader(courseName);
         String row;
         try {
@@ -37,6 +58,14 @@ public class Store {
         System.out.println(seminar.getName() + " " + seminar.getLocation());
         closeReader(csvReader);
         return seminar;
+    }
+
+    private void connectionClose(Connection conn) {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void writeOnFile(String seminarInfo, String fileName) {

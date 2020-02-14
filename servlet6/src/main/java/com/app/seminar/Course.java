@@ -6,13 +6,13 @@ public class Course {
     private final String _id;
     private final String _name;
     private final String _description;
-    private final String _startDate;
+    private final String _start;
 
     public Course(String id, String name, String description, String courseDate) {
         _id = id;
         _name = name;
         _description = description;
-        _startDate = formatDate(courseDate);
+        _start = formatDate(courseDate);
     }
 
     private String formatDate(String courseDate) {
@@ -28,7 +28,7 @@ public class Course {
     }
 
     public String getStartDate() {
-        return _startDate;
+        return _start;
     }
 
     public String getId() {
