@@ -1,45 +1,42 @@
 package seminar;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.app.seminar.Course;
-import com.app.seminar.Seminar;
-import com.app.seminar.Student;
+import com.app.seminar.model.Course;
+import com.app.seminar.model.Student;
 
 public class SeminarTest {
     String courseDate = "28.03.2020";
 
     @Test
     public void checkSeminar() {
-        Course course1 = new Course("1", "English", "A1", courseDate);
-        Course course2 = new Course("1", "Deutsch", "B1", courseDate);
-        Course course3 = new Course("1", "Espagnolo", "C1", courseDate);
-        Seminar english = new Seminar("Lugano", 10, course1);
-        Seminar deutsch = new Seminar("Lugano", 12, course2);
-        Seminar espagnolo = new Seminar("Lugano", 8, course3);
-        Student student1 = new Student("Anna", "Marchi");
-        Student student2 = new Student("Marco", "Ruggieri");
-        Student student3 = new Student("Ivan", "Bernasconi");
-        Student student4 = new Student("Raf", "Bosch");
-        Student student5 = new Student("Pillar", "Moura");
-        Student student6 = new Student("Rosane", "Miguel");
-        english.addStudent(student1);
-        english.addStudent(student2);
-        deutsch.addStudent(student3);
-        espagnolo.addStudent(student4);
-        espagnolo.addStudent(student5);
-        espagnolo.addStudent(student6);
+        Course course1 = new Course(1, "English", "A1", "", 2, courseDate);
+        Course course2 = new Course(1, "Deutsch", "B1", "", 2, courseDate);
+        Course course3 = new Course(1, "Espagnolo", "C1", "", 2, courseDate);
+      
+        Student student1 = new Student(1, "Anna", "Marchi");
+        Student student2 = new Student(1, "Marco", "Ruggieri");
+        Student student3 = new Student(1, "Ivan", "Bernasconi");
+        Student student4 = new Student(1, "Raf", "Bosch");
+        Student student5 = new Student(1, "Pillar", "Moura");
+        Student student6 = new Student(1, "Rosane", "Miguel");
+        
+        course1.addStudent(student1);
+        course1.addStudent(student2);
+        
+        course2.addStudent(student3);
+        course2.addStudent(student4);
+        
+        course3.addStudent(student5);
+        course3.addStudent(student6);
 
-        assertThat(english.getSeatsLeft(), is(8));
-        assertThat(deutsch.getName(), is("Deutsch"));
-        assertThat(espagnolo.getDescription(), is("C1"));
-        assertThat(espagnolo.getLocation(), is("Lugano"));
-        assertThat(espagnolo.getStudentList(), hasSize(3));
-        assertThat(english.getStudentList(), containsInAnyOrder(student1, student2));
-        assertThat(deutsch.getStudentList(), containsInAnyOrder(student3));
-        assertThat(english.getCourse(), is(course1));
-        assertThat(deutsch.getCourse(), is(course2));
+        assertThat(course1.getTotalSeats(), is(8));
+        assertThat(course2.getName(), is("Deutsch"));
+        assertThat(course3.getDescription(), is("C1"));
+        assertThat(course3.getLocation(), is("Lugano"));
+       
     }
 }

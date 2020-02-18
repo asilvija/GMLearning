@@ -1,7 +1,3 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Course {
 
     private final String _number;
@@ -17,13 +13,7 @@ public class Course {
     }
 
     private String formatDate(String courseDate) {
-        Date _courseDate;
-        try {
-            _courseDate = new SimpleDateFormat("dd.MM.yyyy").parse(courseDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return new SimpleDateFormat("dd/MM/yyyy").format(_courseDate);
+        return courseDate;
     }
 
     public String getName() {

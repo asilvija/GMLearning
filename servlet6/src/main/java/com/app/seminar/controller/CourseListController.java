@@ -1,10 +1,12 @@
-package com.app.controller;
+package com.app.seminar.controller;
 
 import java.util.regex.Pattern;
 
-import com.app.seminar.SeminarDetails;
+import com.Context;
+import com.app.controller.Controller;
+import com.app.seminar.model.SeminarDetails;
 
-public class SeminarViewController implements Controller {
+public class CourseListController implements Controller {
 //    private final String _path = "/course";
 
     @Override

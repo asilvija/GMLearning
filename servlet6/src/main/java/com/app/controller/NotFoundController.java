@@ -1,6 +1,7 @@
 package com.app.controller;
 
-import com.app.seminar.NoPageFound;
+import com.Context;
+import com.app.seminar.view.NoPageFound;
 
 public class NotFoundController implements Controller {
 

@@ -26,7 +26,7 @@ public class TestAddPersonToList {
     }
 
     @Test
-    public void execAddPersonToList() {
+    public void execAddPersonToList() throws Exception {
 
         String values = "\nAnna Marone\nq\n5";
 

@@ -1,4 +1,4 @@
-package com.app.seminar;
+package com.app.seminar.model;
 
 import static com.github.manliogit.javatags.lang.HtmlHelper.*;
 
@@ -22,20 +22,16 @@ public class SeminarDetails {
     public SeminarDetails() {
     }
 
-    private Seminar prepareSeminarData() {
+    private Course prepareSeminarData() {
         return new Store().readFromCsvFile(_courseName);
     }
 
-    private ArrayList<Seminar> prepareSeminarsData() {
-        ArrayList<Seminar> results = new ArrayList<Seminar>();
+    private ArrayList<Course> prepareSeminarsData() {
+        ArrayList<Course> results = new ArrayList<Course>();
         for (String courseName : _courses) {
             results.add(new Store().readFromCsvFile(courseName));
         }
         return results;
-    }
-
-    public String renderCsv() {
-        return prepareSeminarData().renderCsv();
     }
 
     public Element renderHtml() {
@@ -171,8 +167,8 @@ public class SeminarDetails {
 
     private Element generateHtmlSeminarList() {
         Element group = group();
-        for (Seminar seminar : prepareSeminarsData()) {
-            group.add(seminar.renderHtmlLayout());  
+        for (Course course : prepareSeminarsData()) {
+            group.add(course.renderHtmlLayout());  
         }
         return group;
     }
@@ -190,7 +186,4 @@ public class SeminarDetails {
         }
     }
 
-    public String renderRaw() {
-        return prepareSeminarData().renderRaw();
-    }
 }

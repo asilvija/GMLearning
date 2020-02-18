@@ -1,4 +1,4 @@
-package com.app.seminar;
+package com.app.seminar.view;
 import static java.util.Arrays.*;
 
 import java.util.ArrayList;

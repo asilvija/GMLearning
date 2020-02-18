@@ -23,7 +23,7 @@ public class MenuSelection {
         _fileName = "participiantsList_"+_date + ".csv";
     }
 
-    public void exec() {
+    public void exec() throws Exception {
         int menuSelection = 0;
         final Scanner in = new Scanner(_input);
         try {
@@ -51,7 +51,7 @@ public class MenuSelection {
         in.close();
     }
 
-    public List<Person> viewParticipantList() {
+    public List<Person> viewParticipantList() throws Exception {
         List<Person> _participiants = new Store(_fileName).readParticipiantList();
 
         System.out.println("Participiants list:\n");
@@ -64,7 +64,7 @@ public class MenuSelection {
         return _participiants;
     }
 
-    public void showMenuOptions() {
+    public void showMenuOptions() throws Exception {
         viewParticipantList();
         System.out.println("---------------------------------------------");
         System.out.print(

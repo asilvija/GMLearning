@@ -11,7 +11,7 @@ public class SelectRandomPresentator implements Action {
     }
 
     @Override
-    public void exec() {
+    public void exec() throws Exception {
         List<Person> _participiants = new Store(_fileName).readParticipiantList();
 
         selectRandomPresentator(_participiants);

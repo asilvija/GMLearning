@@ -17,7 +17,7 @@ public class RemovePersonFromList implements Action {
     }
 
     @Override
-    public void exec() {
+    public void exec() throws Exception {
         getMenuSelection().viewParticipantList();
         System.out.println(
             "\nChoose the index of the person you want to exclude from the participiants list!(press any key to quit)");

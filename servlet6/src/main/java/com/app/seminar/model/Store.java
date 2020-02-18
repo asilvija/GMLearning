@@ -1,34 +1,16 @@
-package com.app.seminar;
+package com.app.seminar.model;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import com.app.seminar.view.CsvRenderer;
 
 public class Store {
-    public Seminar readFromCsvFile(String courseName) {
-        DataSource ds;
-        Connection conn = null;
-        try {
-            ds = (DataSource)new InitialContext().lookup("java:/comp/env/jdbc/prod");
-        } catch (NamingException e1) {
-            throw new RuntimeException(e1);
-        }
-        try {
-            conn = ds.getConnection();
-        } catch (SQLException e1) {
-            throw new RuntimeException(e1);
-        } finally {
-            connectionClose(conn);
-        };
-        
+    public Course readFromCsvFile(String courseName) {
+       
         BufferedReader csvReader = openReader(courseName);
         String row;
         try {
@@ -37,35 +19,24 @@ public class Store {
             throw new RuntimeException(e);
         }
         String courseDetails[] = row.split(";");
-
-        Seminar seminar = new Seminar(CsvRenderer.removeTextDelimiter(courseDetails[3]),
-            Integer.parseInt(CsvRenderer.removeTextDelimiter(courseDetails[4])),
-            new Course(CsvRenderer.removeTextDelimiter(courseDetails[0]),
+         Course course = new Course(Integer.parseInt(CsvRenderer.removeTextDelimiter(courseDetails[0])),
                 CsvRenderer.removeTextDelimiter(courseDetails[1]),
                 CsvRenderer.removeTextDelimiter(courseDetails[2]),
-                "23/03/2015"));
+                CsvRenderer.removeTextDelimiter(courseDetails[3]),
+                Integer.parseInt(CsvRenderer.removeTextDelimiter(courseDetails[4])),
+                CsvRenderer.removeTextDelimiter(courseDetails[5]));
 
         try {
             while ((row = csvReader.readLine()) != null) {
                 String readStudentInfo[] = row.split(";");
-                seminar.addStudent(new Student(CsvRenderer.removeTextDelimiter(readStudentInfo[0]),
+                course.addStudent(new Student(1,CsvRenderer.removeTextDelimiter(readStudentInfo[0]),
                     CsvRenderer.removeTextDelimiter(readStudentInfo[1])));
-                System.out.println(readStudentInfo[0] + " " + readStudentInfo[1]);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(seminar.getName() + " " + seminar.getLocation());
         closeReader(csvReader);
-        return seminar;
-    }
-
-    private void connectionClose(Connection conn) {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return course;
     }
 
     public void writeOnFile(String seminarInfo, String fileName) {

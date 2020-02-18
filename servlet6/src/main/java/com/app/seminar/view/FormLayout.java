@@ -1,4 +1,4 @@
-package com.app.view;
+package com.app.seminar.view;
 
 import static com.github.manliogit.javatags.lang.HtmlHelper.*;
 
@@ -6,11 +6,11 @@ import java.util.Map;
 
 import com.github.manliogit.javatags.element.Element;
 
-public class CustomFormLayout implements Element {
+public class FormLayout implements Element {
     private final Element _content = group();
 
     @Override
-    public CustomFormLayout add(Element element) {
+    public FormLayout add(Element element) {
 
         _content.add(element);
         return this;
@@ -23,9 +23,9 @@ public class CustomFormLayout implements Element {
                 "class -> needs-validation",
                 "method -> post",
                 "action -> create",
-                "role -> form"
-                , "novalidate"
-                ),
+                "role -> form",
+                "novalidate"
+             ),
             _content).render();
     }
 
@@ -62,7 +62,7 @@ public class CustomFormLayout implements Element {
             div(attr("class -> form-group"),
                 label(
                     attr(
-                        "for -> " + name + "",
+                        "for -> " + name,
                         "class -> col-lg-3 control-label"),
                     text(label)),
                 div(attr("class -> col-lg-12"),
@@ -83,36 +83,38 @@ public class CustomFormLayout implements Element {
         return this;
     }
     
-    private Element feedBack(Map<String, String> feedback) {
-       Element group = group();
-       for (Map.Entry<String, String> entry : feedback.entrySet()) {
-           group.add( 
-               div(attr("class ->" + entry.getKey() + ""),
-                   text(entry.getValue())
-               )
-           );
-       }
-       return group;
-    }
-
     public Element datePickerInputField(String name, String label, String required, Map<String, String> feedback) {
         add(
             div(attr("class -> form-group"),
-                label(attr("for -> " + name + "",
+                label(
+                    attr("for -> " + name,
                     "class -> col-lg-3 control-label"),
                     text(label)),
                 div(attr("class ->col-lg-12"),
                     input(
                         attr("type -> text",
-                            required)
-                                .add("class", "form-control")
-                                .add("id", "datetimepicker")
-                                .add("name", name)
-                                .add("placeholder", "Pick Date")
-                                .add("data-date-format", "MM.DD.YYYY")
+                            required
+                          )
+                            .add("class", "form-control")
+                            .add("id", "datetimepicker")
+                            .add("name", name)
+                            .add("placeholder", "Pick Date")
+                            .add("data-date-format", "MM.DD.YYYY")
                     ), feedBack(feedback)
                 )));
         return this;
+    }
+    
+    private Element feedBack(Map<String, String> feedback) {
+        Element group = group();
+        for (Map.Entry<String, String> entry : feedback.entrySet()) {
+            group.add( 
+                div(attr("class ->" + entry.getKey() + ""),
+                    text(entry.getValue())
+                    )
+                );
+        }
+        return group;
     }
 
     public Element addSubmitButton(String name) {

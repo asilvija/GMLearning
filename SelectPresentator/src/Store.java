@@ -19,17 +19,17 @@ public class Store {
         _fileName = fileName;
     }
 
-    public List<Person> readParticipiantList() {
+    public List<Person> readParticipiantList() throws Exception {
         List<Person> participiants = new ArrayList<>();
-
-        try {
+        BufferedReader csvReader= null;
+     
             createFileIfNotExsists();
-            BufferedReader csvReader = new BufferedReader(new FileReader(_fileName));
+            csvReader = new BufferedReader(new FileReader(_fileName));
             addPersonToListFromFile(participiants, csvReader);
             csvReader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        
+            csvReader.close();
+            
         return participiants;
     }
 

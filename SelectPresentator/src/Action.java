@@ -1,3 +1,3 @@
 public interface Action {
-    void exec();
+    void exec() throws Exception;
 }

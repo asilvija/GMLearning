@@ -1,4 +1,4 @@
-package com.app.seminar;
+package com.app.seminar.view;
 
 import java.util.List;
 

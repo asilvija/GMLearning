@@ -28,7 +28,7 @@ public class AddPersonToList implements Action {
     }
 
     @Override
-    public void exec() {
+    public void exec() throws Exception {
         String fullName;
         List<Person> _participiants = _store.readParticipiantList();
         _in.nextLine();

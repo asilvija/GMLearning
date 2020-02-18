@@ -24,7 +24,7 @@ public class TestRemovePersonFromList {
     }
 
     @Test
-    public void execRemovePersonFromList() {
+    public void execRemovePersonFromList() throws Exception {
 
         List<Person> participiants = Arrays.asList(new Person(1, Arrays.asList("Anna", "Marone", "false")));
         new Store(FILE_NAME).writeCsvFile(participiants);

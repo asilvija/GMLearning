@@ -23,7 +23,7 @@ public class TestMenuSelection {
     }
     
     @Test
-    public void menuSelectionExecutesSelectedActionFromInput() {
+    public void menuSelectionExecutesSelectedActionFromInput() throws Exception {
         String values = "1\nAnna Marone\nq\n5";
         ByteArrayInputStream input = new ByteArrayInputStream(values.getBytes());
 

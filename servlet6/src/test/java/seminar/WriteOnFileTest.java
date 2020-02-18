@@ -1,4 +1,5 @@
 package seminar;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -7,22 +8,18 @@ import java.io.FileReader;
 
 import org.junit.Test;
 
-import com.app.seminar.Course;
-import com.app.seminar.Seminar;
-import com.app.seminar.Student;
+import com.app.seminar.model.Course;
+import com.app.seminar.model.Student;
 
 public class WriteOnFileTest {
 
     @Test
     public void checkPrintCsv() throws Exception {
-        Seminar seminar = new Seminar("Lugano", 10, new Course("1", "English", "A1", "20.03.2019"));
-
-        seminar.addStudent(new Student("Anna", "Marchi"));
-        seminar.addStudent(new Student("Marco", "Ruggieri"));
-        seminar.renderCsv();
-
+        Course course = new Course(1, "English", "A1", "", 2, "20.03.2019");
+        course.addStudent(new Student(1, "Anna", "Marchi"));
+        course.addStudent(new Student(1, "Marco", "Ruggieri"));
+        course.formatCsv();
         BufferedReader _input = new BufferedReader(new FileReader("English.csv"));
-
         String attributes[] = _input.readLine().split(";");
         assertThat(attributes[0], is("1"));
         assertThat(attributes[1], is("English"));

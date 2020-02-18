@@ -8,9 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.app.seminar.CsvRenderer;
-import com.app.seminar.HtmlRenderer;
-import com.app.seminar.RawRenderer;
+import com.app.seminar.view.CsvRenderer;
+import com.app.seminar.view.HtmlRenderer;
 
 public class RendererTest {
 
@@ -38,18 +37,6 @@ public class RendererTest {
         CsvRenderer csvRenderer = new CsvRenderer(data);
         
         String result = csvRenderer.render();
-        
         assertThat(result, is("\"1\";\"english\";\"A1\";\"Lugano\";\"2\";\"10/03/2014\";\n"));
-    }
-    
-    @Test
-    public void rawRenderer() {
-        List<List<String>> data = new ArrayList<List<String>>();
-        data.add(asList("1","english","A1","Lugano","2","10/03/2014"));
-        RawRenderer rawRenderer = new RawRenderer(data);
-        
-        String result = rawRenderer.render();
-        
-        assertThat(result, is("1 english A1 Lugano 2 10/03/2014 \n"));   
     }
 }

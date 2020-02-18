@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.app.seminar.Student;
+import com.app.seminar.model.Student;
 
 public class StudentTest {
 
     @Test
     public void checkStudent() {
-        Student student = new Student("Anna", "Marchi");
+        Student student = new Student(1, "Anna", "Marchi");
         
         assertThat(student.getName(), is("Anna"));
         assertThat(student.getLastName(), is("Marchi"));
