@@ -37,7 +37,7 @@ public class Servlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    
-		for(Controller controller : new SeminarFactory().create()){
+		for(Controller controller : new CourseFactory().create()){
 		    if(controller.handles(req.getRequestURI())){
                 ConnectionHandler connection = new ConnectionHandler(_ds);
                 try {

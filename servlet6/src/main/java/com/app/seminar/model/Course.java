@@ -1,15 +1,22 @@
 package com.app.seminar.model;
 
 import static com.github.manliogit.javatags.lang.HtmlHelper.*;
-import static java.util.Arrays.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import com.app.seminar.view.CsvRenderer;
 import com.github.manliogit.javatags.element.Element;
 
-public class Course {
+public class Course implements Entity{
+    
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String DESCRIPTION = "description";
+    public static final String LOCATION = "location";
+    public static final String TOTAL_SEATS = "totalSeats";
+    public static final String START = "start";
+    
     private final Integer _id;
     private final String _name;
     private final String _description;
@@ -18,6 +25,7 @@ public class Course {
     private final String _start;
     private final List<Student> _students = new ArrayList<Student>();
 
+   
     public Course(Integer id, String name, String description, String location, Integer totalSeats, String courseDate) {
         _id = id;
         _name = name;
@@ -25,6 +33,17 @@ public class Course {
         _location = location;
         _totalSeats = totalSeats;
         _start = courseDate;
+    }
+    
+    public Course(Map<String, String> params) {
+        this(
+            params.get(ID).equals("") ? null : Integer.parseInt(params.get(ID)),
+            params.get(NAME), 
+            params.get(DESCRIPTION), 
+            params.get(LOCATION), 
+            Integer.valueOf(params.get(TOTAL_SEATS)), 
+            params.get(START)
+         );
     }
 
     public String getName() {
@@ -46,34 +65,29 @@ public class Course {
     public String getLocation() {
         return _location;
     }
-
-    public String formatCsv() {
-        List<List<String>> data = new ArrayList<List<String>>();
-        data.add(
-            asList(
-                getId().toString(),
-                getName(),
-                getDescription(),
-                getLocation(),
-                String.valueOf(getTotalSeats()),
-                getStartDate()
-             )
-        );
-
-        for (Student student : _students) {
-            data.add(asList(student.getName(), student.getLastName()));
-        }
-        return new CsvRenderer(data).render();
-    }
     
     public Element renderHtmlLayout() {
-        return group().add(tr(
+        return group().add(
+        tr(
             th(getId().toString()),
             th(getName()),
             th(getLocation()),
             th(getTotalSeats().toString()),
             th(getStartDate())
          ));
+    }
+    
+    public static Element renderRow(Entity entity) {
+        Course c = (Course)entity; 
+        return tr(
+                td(text(c.getId().toString())),
+                th(attr("scope -> row"), a(attr("href -> /course/" + c.getId()),text(c.getName()))),
+                td(text(c.getLocation())),
+                td(text(c.getTotalSeats().toString())),
+                td(text(c.getStartDate()))
+//                ,
+//                td(a(attr("href -> " + DeleteCourse.ROUTE + "/" + c.getId()),"delete"))
+            );
     }
     
     public void addStudent(Student student) {

@@ -82,5 +82,42 @@ public class CourseMapper {
             throw new RuntimeException(e);
         }
     }
-
+    public Course findById(String courseId) {
+        try {
+            PreparedStatement ps = _connection.prepareStatement("select * from Course where id = ?");
+            ps.setObject(1, courseId);
+            
+            ResultSet rs = ps.executeQuery();
+            List<Course> courses = new ArrayList<Course>();
+            while(rs.next()) {
+                courses.add(
+                    new Course(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6)
+                    )
+                );
+            }
+            ps.close();
+            rs.close();
+            return courses.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void delete(String courseId) {
+        try {
+            PreparedStatement ps = _connection.prepareStatement("delete from course where id = ?");
+            ps.setObject(1, courseId);
+            
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

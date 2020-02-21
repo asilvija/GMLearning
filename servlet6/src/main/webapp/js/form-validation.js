@@ -46,8 +46,7 @@ function checkFormValidity() {
 	
 	if ((fieldValidation("name", letters) && maxLengthValidation("name", 15)) &
 	    (fieldValidation("totalseats", digits) && maxLengthValidation("totalseats", 2)) &
-	    (fieldValidation("location", letters) && maxLengthValidation("location", 20)) &
-	     fieldValidation("id", digits)
+	    (fieldValidation("location", letters) && maxLengthValidation("location", 20)) 
 	    ) {
 		console.log("valid");
 		return true;
@@ -115,7 +114,7 @@ function stopPropagation () {
 }
 
 $(document).ready(function() {
-	$('#datetimepicker').datetimepicker({
+	$('#start').datetimepicker({
 	});
 });
 
