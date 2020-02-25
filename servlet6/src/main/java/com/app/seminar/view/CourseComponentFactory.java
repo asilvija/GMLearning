@@ -11,7 +11,6 @@ public class CourseComponentFactory implements RowFactory {
     public Element row(Entity e) {
         Course c = (Course)e; 
         return tr(
-//                td(text(c.getId().toString())),
                 th(attr("scope -> row"), a(attr("href -> /course/" + c.getId()),text(c.getName()))),
                 td(text(c.getLocation())),
                 td(text(c.getTotalSeats().toString())),

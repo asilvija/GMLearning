@@ -100,10 +100,10 @@ public class Layout implements Html {
                           a(attr("class -> list-group-item","href -> /course/create"),
                             text("Create Course")
                           ),
-                          a(attr("class -> list-group-item","href -> "),
+                          a(attr("class -> list-group-item","href -> /student"),
                             text("Student List")
                           ),
-                          a(attr("class -> list-group-item","href -> "),
+                          a(attr("class -> list-group-item","href -> /student/create"),
                             text("Create Student")
                           )
                         )

@@ -84,4 +84,28 @@ public class StudentMapper {
             throw new RuntimeException(e);
         }
     }
+    
+    public Student findById(String studentId) {
+        try {
+            PreparedStatement ps = _connection.prepareStatement("select * from Student where id = ?");
+            ps.setObject(1, studentId);
+            
+            ResultSet rs = ps.executeQuery();
+            List<Student> students = new ArrayList<Student>();
+            while(rs.next()) {
+                students.add(
+                    new Student(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3)
+                    )
+                );
+            }
+            ps.close();
+            rs.close();
+            return students.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
