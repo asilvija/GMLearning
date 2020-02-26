@@ -12,6 +12,7 @@ import com.app.seminar.controller.CourseDeleteController;
 import com.app.seminar.controller.CourseListController;
 import com.app.seminar.controller.CourseUpdateController;
 import com.app.seminar.controller.StudentCreationController;
+import com.app.seminar.controller.StudentDeleteController;
 import com.app.seminar.controller.StudentListController;
 import com.app.seminar.controller.StudentUpdateController;
 
@@ -27,6 +28,7 @@ public class CourseFactory {
                 new StudentListController(),
                 new StudentCreationController(),
                 new StudentUpdateController(),
+                new StudentDeleteController(),
                 new NotFoundController()
             )
         );

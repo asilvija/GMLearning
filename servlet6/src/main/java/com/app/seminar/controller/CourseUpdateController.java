@@ -11,12 +11,14 @@ import java.util.regex.Pattern;
 import com.Context;
 import com.app.controller.Controller;
 import com.app.seminar.model.Course;
+import com.app.seminar.model.EntityModel;
 import com.app.seminar.model.mapper.CourseMapper;
 import com.app.seminar.view.Component;
 import com.app.seminar.view.FeedBack;
 import com.app.seminar.view.Form;
 import com.app.seminar.view.Html;
 import com.app.seminar.view.Layout;
+import com.app.seminar.view.ViewUtil;
 
 public class CourseUpdateController implements Controller {
     @Override
@@ -27,10 +29,16 @@ public class CourseUpdateController implements Controller {
     @Override
     public void execute(Context context) throws Exception {
         
-        if (context.post()) {    
-            final Course course = new Course(context.requestMap());
-            new CourseMapper(context.connection()).save(course);
-            context.response().sendRedirect("/");
+        FeedBack feedBack = new FeedBack();
+        if (context.post()) {                
+            if (context.post()) {
+                EntityModel entity = new EntityModel(Course.class, Course.rules(), context.requestMap());
+                if (new ControllerUtil().saveCourse(context, entity, "/course")) {
+                    return;
+                } else {
+                    feedBack = new ViewUtil().feedback(entity, context);
+                }
+            }
  
         } else {
             String courseId = context.requestUri().replaceAll("\\D", "");
@@ -44,10 +52,10 @@ public class CourseUpdateController implements Controller {
                 put(Course.TOTAL_SEATS , new Component(course.getTotalSeats().toString()));
             }};
             
-            FeedBack feedBack = new FeedBack(map);
-            List<String> components = Arrays.asList(NAME, START, LOCATION, TOTAL_SEATS, ID);
-            Html form = new Form(feedBack,"", components, "id");
-            context.response().getWriter().write(new Layout("update course", form).build().render());
+            feedBack = new FeedBack(map);
         }
+        List<String> components = Arrays.asList(NAME, START, LOCATION, TOTAL_SEATS, ID);
+        Html form = new Form(feedBack,"", components, "id");
+        context.response().getWriter().write(new Layout("update course", form).build().render());
     }
 }

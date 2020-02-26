@@ -26,18 +26,15 @@ public class FeedBack {
         if (_map.containsKey(component)) {
             return group(
                 errorList(component),
-                span(
-                    attr("class -> glyphicon form-control-feedback", 
-                          "aria-hidden ->true").add("class",
+                span(attr("class -> glyphicon form-control-feedback", "aria-hidden ->true").add("class",
                     _map.get(component).icon())),
-                span(
-                    attr("id -> idHelp" + component, "class -> sr-only"), _map.get(component).value()));
+                span(attr("id -> idHelp" + component, "class -> sr-only"), _map.get(component).value()));
         }
         return span();
     }
 
     private Element errorList(String component) {
-        List<Element> errors = new ArrayList<Element>();
+        List<Element> errors = new ArrayList<>();
         for (String message : _map.get(component).messages()) {
             errors.add(
                 span(attr("id -> idHelp" + component, "class -> help-block"), message));
@@ -53,9 +50,8 @@ public class FeedBack {
     }
 
     public Attribute value(String component) {
-        if (_map.containsKey(component)) {  
-            return attr().add("value", _map.get(component).userInput()).
-                add("aria-describedby",
+        if (_map.containsKey(component)) {
+            return attr().add("value", _map.get(component).userInput()).add("aria-describedby",
                 "idHelp" + component);
         }
         return attr();
@@ -64,5 +60,4 @@ public class FeedBack {
     public String text(String component) {
         return _map.containsKey(component) ? _map.get(component).userInput() : "";
     }
-
 }

@@ -8,12 +8,13 @@ import java.util.List;
 
 import com.Context;
 import com.app.controller.Controller;
+import com.app.seminar.model.EntityModel;
 import com.app.seminar.model.Student;
-import com.app.seminar.model.mapper.StudentMapper;
 import com.app.seminar.view.FeedBack;
 import com.app.seminar.view.Form;
 import com.app.seminar.view.Html;
 import com.app.seminar.view.Layout;
+import com.app.seminar.view.ViewUtil;
 
 public class StudentCreationController implements Controller {
     
@@ -29,18 +30,19 @@ public class StudentCreationController implements Controller {
         context.response().setContentType("text/html");
         context.response().setCharacterEncoding("UTF-8");
         
-        if (context.post()) { 
-            final Student student = new Student(context.requestMap());
-            new StudentMapper(context.connection()).save(student);
-            context.response().sendRedirect("/student");
-        } else {       
-            viewForm(context);
+        FeedBack feedBack = new FeedBack();
+        if (context.post()) {
+            EntityModel entityModel = new EntityModel(Student.class, Student.rules(), context.requestMap());
+            if (new ControllerUtil().saveStudent(context, entityModel, "/student")) {
+                return;
+            } else {
+                feedBack = new ViewUtil().feedback(entityModel, context);
+            }
         }
+        viewForm(context, feedBack);
     }
 
-    private void viewForm(Context context) throws IOException {
-
-        FeedBack feedBack = new FeedBack();
+    private void viewForm(Context context, FeedBack feedBack) throws IOException {
         List<String> components = Arrays.asList(FIRST_NAME, LAST_NAME, ID);
         Html form = new Form(feedBack,"create", components, "id");
         context.response().getWriter().write(new Layout("create student", form).build().render());

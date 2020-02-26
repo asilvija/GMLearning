@@ -1,11 +1,20 @@
 package com.app.seminar.model;
 
+import static java.util.Arrays.*;
+
 import java.util.Map;
+
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+
+import com.app.seminar.model.rule.MaxLength;
+import com.app.seminar.model.rule.NotEmpty;
+import com.app.seminar.model.rule.Rule;
 
 public class Student implements Entity {
     public static final String ID = "id";
-    public static final String FIRST_NAME = "first name";
-    public static final String LAST_NAME = "last name";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
     
     private final Integer _id;
     private final String _firstName;
@@ -40,4 +49,11 @@ public class Student implements Entity {
     public Integer getId() {
         return _id;
     }
+    
+    public static MultiValuedMap<String, Rule> rules(){
+        return new ArrayListValuedHashMap<String, Rule>(){{
+           putAll("firstName",   asList(new NotEmpty(), new MaxLength(15)));
+           putAll("lastName",    asList(new NotEmpty(), new MaxLength(20)));
+       }};
+   }
 }

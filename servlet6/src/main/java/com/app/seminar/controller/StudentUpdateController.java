@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import com.Context;
 import com.app.controller.Controller;
+import com.app.seminar.model.EntityModel;
 import com.app.seminar.model.Student;
 import com.app.seminar.model.mapper.StudentMapper;
 import com.app.seminar.view.Component;
@@ -17,6 +18,7 @@ import com.app.seminar.view.FeedBack;
 import com.app.seminar.view.Form;
 import com.app.seminar.view.Html;
 import com.app.seminar.view.Layout;
+import com.app.seminar.view.ViewUtil;
 
 public class StudentUpdateController implements Controller {
     @Override
@@ -26,12 +28,14 @@ public class StudentUpdateController implements Controller {
 
     @Override
     public void execute(Context context) throws Exception {
-        
+        FeedBack feedBack = new FeedBack();
         if (context.post()) {    
-            final Student student = new Student(context.requestMap());
-            new StudentMapper(context.connection()).save(student);
-            context.response().sendRedirect("/student");
- 
+            EntityModel entityModel = new EntityModel(Student.class, Student.rules(), context.requestMap());
+            if (new ControllerUtil().saveStudent(context, entityModel, "/student")) {
+                return;
+            } else {
+                feedBack = new ViewUtil().feedback(entityModel, context);
+            }
         } else {
             String studentId = context.requestUri().replaceAll("\\D", "");
             final Student student = new StudentMapper(context.connection()).findById(studentId);
@@ -41,11 +45,10 @@ public class StudentUpdateController implements Controller {
                 put(FIRST_NAME , new Component(student.getName()));
                 put(LAST_NAME , new Component(student.getLastName()));
             }};
-            
-            FeedBack feedBack = new FeedBack(map);
-            List<String> components = Arrays.asList(FIRST_NAME, LAST_NAME, ID);
-            Html form = new Form(feedBack,"", components, "id");
-            context.response().getWriter().write(new Layout("update course", form).build().render());
+            feedBack = new FeedBack(map);
         }
+        List<String> components = Arrays.asList(FIRST_NAME, LAST_NAME, ID);
+        Html form = new Form(feedBack,"", components, "id");
+        context.response().getWriter().write(new Layout("update student", form).build().render());
     }
 }
